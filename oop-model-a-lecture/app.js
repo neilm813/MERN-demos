@@ -46,6 +46,31 @@ class Lecture {
     return students;
   }
 
+  findAllSharedHobbies() {
+    /**
+     * @typedef {Object<string, Array<Person>} SharedHobbies
+     */
+
+    /**
+     * @type {SharedHobbies}
+     */
+    const hobbiesTable = {};
+
+    for (const student of this.students) {
+      for (const hobby of student.hobbies) {
+        if (hobby in hobbiesTable) {
+          hobbiesTable[hobby].push(student);
+        } else {
+          // First time finding a student with this particular hobby.
+          // initialize an array with only this student in it so we can push
+          // other students to it later.
+          hobbiesTable[hobby] = [student];
+        }
+      }
+    }
+    return hobbiesTable;
+  }
+
   findStudentsWithSharedHobby2 = (hobby) =>
     this.students.filter((student) => student.hobbies.includes(hobby));
 
@@ -75,7 +100,7 @@ const sean = new Person("Sean", "Caylor", [
   "Renaissance",
 ]);
 
-const gary = new Person("Gary", "McKinnon", ["Mountain Biking"]);
+const gary = new Person("Gary", "McKinnon", ["Mountain Biking", "Coding"]);
 
 const neil = new Person("Neil", "Mos", [
   "Mountain Biking",
@@ -90,4 +115,5 @@ const oopLecture = new Lecture(neil, "OOP", [javan, sean, gary]);
 const otherLecture = new Lecture(john, "JS Intro", [lawrence]);
 
 // console.log(oopLecture.findStudentsWithSharedHobby("Video Games"));
-console.log(oopLecture.attendanceList());
+// console.log(oopLecture.attendanceList());
+console.log(oopLecture.findAllSharedHobbies());
