@@ -49,4 +49,36 @@ const expected = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
  * @param {Array<number>} nums
  * @returns {Array<number>} The given array after being sorted.
  */
-function insertionSort(nums) {}
+function insertionSort(nums) {
+  for (let i = 1; i < nums.length; i++) {
+    // save the current 'target' so this space is available to use for shifting
+    let numToInsert = nums[i];
+    let leftIdx = i - 1;
+
+    while (leftIdx >= 0 && nums[leftIdx] > numToInsert) {
+      // shift to the right because it's greater than the item we are going to insert
+      nums[leftIdx + 1] = nums[leftIdx];
+      leftIdx--;
+    }
+    // shifting complete, insert position located
+    nums[leftIdx + 1] = numToInsert;
+  }
+  return nums;
+}
+
+function insertionSortSwap(nums) {
+  for (let i = 1; i < nums.length; i++) {
+    let currIdx = i; // to avoid altering i directly
+    let leftIdx = currIdx - 1; // compare to the left
+
+    while (leftIdx >= 0 && nums[leftIdx] > nums[currIdx]) {
+      // destructure swap notation
+      [nums[leftIdx], nums[currIdx]] = [nums[currIdx], nums[leftIdx]];
+
+      // curr got swapped to the left, so currIdx is now 1 to the left
+      currIdx--;
+      leftIdx = currIdx - 1;
+    }
+  }
+  return nums;
+}
