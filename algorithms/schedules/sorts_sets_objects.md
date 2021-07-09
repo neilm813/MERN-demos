@@ -13,3 +13,5 @@
    - [insertionSort](../sorts/insertionSort.js)
 3. Wed
    - [mergeSort](../sorts/mergeSort.js)
+4. Thur
+   - [partition](../sorts/partition.js)
