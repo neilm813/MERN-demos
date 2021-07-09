@@ -7,13 +7,14 @@
  */
 const FormResults = (props) => {
   return (
-    <div
+    <fieldset
       style={{ padding: "5px", border: "1px solid green", textAlign: "center" }}
     >
+      <legend>FormResult.js</legend>
       <p>{props.category}</p>
       <p>{props.front}</p>
       <p>{props.back}</p>
-    </div>
+    </fieldset>
   );
 };
 

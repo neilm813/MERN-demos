@@ -4,6 +4,7 @@ import React, { useState } from "react";
 
 import flashcardsData from "./flashcards.json";
 import FormResults from "./components/FormResults";
+import Flashcard from "./components/Flashcard";
 
 function App() {
   const [flashcards, setFlashcards] = useState(flashcardsData);
@@ -79,7 +80,9 @@ function App() {
   };
 
   return (
-    <div className="container">
+    // fieldset and legend used just for visualization purposes not because they are supposed to be used here.
+    <fieldset className="container" style={{ border: "2px solid red" }}>
+      <legend>App.js</legend>
       <header>
         <h1 style={{ textAlign: "center" }}>Programming Flash Cards</h1>
         <form
@@ -126,32 +129,17 @@ function App() {
       <main className="flex-row flex-wrap">
         {flashcards.map((card, i) => {
           return (
-            <section
+            <Flashcard
               key={i}
-              className="card"
-              onClick={(event) => {
-                handleFlipCardClick(event, i);
-              }}
-            >
-              <h3>{card.category}</h3>
-              {card.flipped ? (
-                <p className="back">{card.back}</p>
-              ) : (
-                <p className="front">{card.front}</p>
-              )}
-              <button
-                onClick={(event) => {
-                  handleDelete(event, i);
-                }}
-                style={{ color: "red", fontWeight: "bold" }}
-              >
-                X
-              </button>
-            </section>
+              i={i}
+              handleFlipCardClick={handleFlipCardClick}
+              card={card}
+              handleDelete={handleDelete}
+            />
           );
         })}
       </main>
-    </div>
+    </fieldset>
   );
 }
 
