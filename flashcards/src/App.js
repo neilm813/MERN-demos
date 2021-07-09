@@ -66,7 +66,7 @@ function App() {
     // we MUST pass in a new array in order for react to re-render.
     setFlashcards([...flashcards, newFlashcard]);
 
-    // This only works if you add value attribute to <input>
+    // This only works if you add value attribute to corresponding <input>
     setCategory("");
     setFront("");
     setBack("");
