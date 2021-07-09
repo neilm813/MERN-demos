@@ -12,6 +12,8 @@ function App() {
   const [category, setCategory] = useState("");
   const [front, setFront] = useState("");
   const [back, setBack] = useState("");
+  const [categoryErr, setCategoryErr] = useState("");
+  const [frontErr, setFrontErr] = useState("");
 
   /* This is what we would have to do if we didn't use .map to display cards. */
   // const convertCardsToJSX = () => {
@@ -97,20 +99,40 @@ function App() {
             <input
               onChange={(event) => {
                 setCategory(event.target.value);
+
+                if (event.target.value.length < 2) {
+                  setCategoryErr("must be 2 or more characters.");
+                } else if (event.target.value.length > 20) {
+                  setCategoryErr("must be 20 or fewer characters.");
+                } else {
+                  setCategoryErr("");
+                }
               }}
               type="text"
               value={category}
             />
+            {categoryErr.length > 0 && (
+              <span style={{ color: "red" }}>{categoryErr}</span>
+            )}
           </div>
           <div>
             <label>Front: </label>
             <textarea
               onChange={(event) => {
                 setFront(event.target.value);
+
+                if (event.target.value.length < 10) {
+                  setFrontErr("must be 10 or more characters.");
+                } else {
+                  setFrontErr("");
+                }
               }}
               type="text"
               value={front}
             ></textarea>
+            {frontErr.length > 0 && (
+              <span style={{ color: "red" }}>{frontErr}</span>
+            )}
           </div>
           <div>
             <label>Back: </label>
