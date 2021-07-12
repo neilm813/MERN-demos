@@ -13,10 +13,10 @@ const Flashcard = (props) => {
       <h3>{props.card.category}</h3>
       {props.card.flipped ? (
         <p className={`${styles.back} ${styles.colorfulFont}`}>
-          {props.card.back}
+          {props.card.correct_answer}
         </p>
       ) : (
-        <p className={styles.front}>{props.card.front}</p>
+        <p className={styles.front}>{props.card.question}</p>
       )}
       <button
         onClick={(event) => {

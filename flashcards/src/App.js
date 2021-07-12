@@ -1,19 +1,32 @@
 import "./App.css";
 
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 import flashcardsData from "./flashcards.json";
 import FormResults from "./components/FormResults";
 import Flashcard from "./components/Flashcard";
 
 function App() {
-  const [flashcards, setFlashcards] = useState(flashcardsData);
+  const [flashcards, setFlashcards] = useState(null);
 
   const [category, setCategory] = useState("");
   const [front, setFront] = useState("");
   const [back, setBack] = useState("");
   const [categoryErr, setCategoryErr] = useState("");
   const [frontErr, setFrontErr] = useState("");
+
+  useEffect(() => {
+    axios
+      .get("https://opentdb.com/api.php?amount=10&category=18&type=boolean")
+      .then((res) => {
+        console.log(res);
+        setFlashcards(res.data.results);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   /* This is what we would have to do if we didn't use .map to display cards. */
   // const convertCardsToJSX = () => {
@@ -55,8 +68,8 @@ function App() {
       // long-form key: value pair.
       category: category,
       // shorthand can be used when the key name matches the var name.
-      front,
-      back,
+      question: front,
+      correct_answer: back,
       flipped: false,
     };
 
@@ -82,6 +95,15 @@ function App() {
 
     setFlashcards(filteredFlashcards);
   };
+
+  if (flashcards === null) {
+    return (
+      <img
+        src="http://static.demilked.com/wp-content/uploads/2016/06/gif-animations-replace-loading-screen-14.gif"
+        alt="Loading"
+      />
+    );
+  }
 
   return (
     // fieldset and legend used just for visualization purposes not because they are supposed to be used here.
