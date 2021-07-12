@@ -1,0 +1,16 @@
+.selected {
+  color: white;
+  background-color: black;
+}
+
+.italics {
+  font-style: italic;
+}
+
+.warning {
+  color: red;
+}
+
+.bold {
+  font-weight: bold;
+}
