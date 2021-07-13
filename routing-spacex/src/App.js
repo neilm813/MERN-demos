@@ -8,7 +8,7 @@ import NotFound from "./views/NotFound";
 
 function App() {
   return (
-    <div style={{ width: "80%", margin: "0 auto" }}>
+    <div style={{ width: "80%", margin: "0 auto", textAlign: "center" }}>
       <header>
         <nav>
           <Link to="/launches">Launches</Link>
