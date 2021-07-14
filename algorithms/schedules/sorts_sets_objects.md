@@ -29,3 +29,6 @@
 2. Tue
    - [diagonalDifference](../arrays/diagonalDifference.js)
    - [orderedMultisetUnion](../arrays/orderedMultisetUnion.js)
+3. Wed
+   - [measureWaterLevels](../arrays/measureWaterLevels.js)
+   - [symmetricDifferences](../arrays/symmetricDifferences.js)
