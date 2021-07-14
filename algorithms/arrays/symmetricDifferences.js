@@ -97,20 +97,22 @@ function symmetricDifferencesHashTable(numsA, numsB) {
   return disjunctiveUnion;
 }
 
+// O(n) + O(m) + O(m) + O(n)
 function symmetricDifferencesSets(numsA, numsB) {
-  const disjunctiveUnion = new Set(numsA);
+  const disjunctiveUnion = new Set(numsA); // O(n)
   // To dedupe set B as well so that when a num is deleted if won't accidentally
   // be re-added below if there were a dupe
-  const setB = new Set(numsB);
+  const setB = new Set(numsB); // O(m)
 
   for (const item of setB) {
+    // O(m)
     if (disjunctiveUnion.has(item)) {
       disjunctiveUnion.delete(item);
     } else {
       disjunctiveUnion.add(item);
     }
   }
-  return [...disjunctiveUnion];
+  return [...disjunctiveUnion]; // O(n)
 }
 
 function symmetricDifferencesMath(numsA, numsB) {
@@ -122,5 +124,6 @@ function symmetricDifferencesMath(numsA, numsB) {
   const intersect = new Set(numsB.filter((item) => setA.has(item)));
 
   // Remove Intersect from Union
+
   return [...union].filter((item) => !intersect.has(item));
 }
