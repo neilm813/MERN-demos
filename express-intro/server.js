@@ -24,11 +24,20 @@ app.get("/api/cities", (req, res) => {
   ]);
 });
 
+// If this was under the :id route, the word hello would be considered an id
+// and this route would never be accessible.
+app.get("/api/cities/hello", (req, res) => {
+  res.json("hello");
+});
+
 app.get("/api/cities/:id", (req, res) => {
+  console.log(req.params);
+  
   res.json({
     id: req.params.id
   });
 });
+
 
 app.post("/api/cities", (req, res) => {
   console.log(req.body);
