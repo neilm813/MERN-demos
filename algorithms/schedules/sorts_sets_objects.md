@@ -32,3 +32,6 @@
 3. Wed
    - [measureWaterLevels](../arrays/measureWaterLevels.js)
    - [symmetricDifferences](../arrays/symmetricDifferences.js)
+4. Thur
+   - [allNonConsecutive](../arrays/allNonConsecutive.js)
+   - [findConsqSums](../arrays/findConsqSums.js)
