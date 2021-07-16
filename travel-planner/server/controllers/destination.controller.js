@@ -67,4 +67,15 @@ module.exports = {
         res.json(err);
       });
   },
+
+  // You don't need to know this.
+  createMany(req, res) {
+    const promises = req.body.map((dest) => {
+      return Destination.create(dest);
+    });
+
+    Promise.allSettled(promises).then((results) => {
+      res.json(results);
+    });
+  },
 };
