@@ -37,16 +37,46 @@ const sortedB4 = [3, 7, 8, 10];
 const expectedMerge4 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 /**
- * Efficiently merges two already sorted arrays into a new sorted array.
- * Do not mutate the given arrays.
- * - Time: O(?).
- * - Space: O(?).
+ * Merges two already sorted arrays into a new sorted array.
+ * - Time: O(n + m) -> O(n) linear n = left.length, m = right.length.
+ *    Every item from each array is visited once.
+ * - Space: O(n + m) -> O(n) linear.
  * @param {Array<number>} left
  * @param {Array<number>} right
  * @returns {Array<number>} A new sorted array containing all the elements of
  *    both given halves.
  */
-function merge(left, right) {}
+function merge(left, right) {
+  let result = [];
+  let indexLeft = 0;
+  let indexRight = 0;
+
+  while (indexLeft < left.length && indexRight < right.length) {
+    if (left[indexLeft] < right[indexRight]) {
+      result.push(left[indexLeft]);
+      indexLeft++;
+    } else {
+      result.push(right[indexRight]);
+      indexRight++;
+    }
+  }
+
+  // in case one of the arrays has remaining items due to unequal lengths, all of those can be added
+  while (indexLeft < left.length) {
+    result.push(left[indexLeft]);
+    indexLeft++;
+  }
+
+  while (indexRight < right.length) {
+    result.push(right[indexRight]);
+    indexRight++;
+  }
+
+  return result;
+
+  // one liner version of adding in any left over items
+  // return result.concat(left.slice(indexLeft)).concat(right.slice(indexRight));
+}
 
 // mergeSort
 const numsOrdered = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
