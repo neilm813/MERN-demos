@@ -19,23 +19,6 @@
           can therefore be merged into a sorted array.
 */
 
-// merge
-const sortedA1 = [];
-const sortedB1 = [];
-const expectedMerge1 = [];
-
-const sortedA2 = [5];
-const sortedB2 = [2];
-const expectedMerge2 = [2, 5];
-
-const sortedA3 = [3];
-const sortedB3 = [2, 3, 4, 7];
-const expectedMerge3 = [2, 3, 3, 4, 7];
-
-const sortedA4 = [1, 2, 4, 5, 6, 9];
-const sortedB4 = [3, 7, 8, 10];
-const expectedMerge4 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
 /**
  * Merges two already sorted arrays into a new sorted array.
  * - Time: O(n + m) -> O(n) linear n = left.length, m = right.length.
@@ -78,12 +61,6 @@ function merge(left, right) {
   // return result.concat(left.slice(indexLeft)).concat(right.slice(indexRight));
 }
 
-// mergeSort
-const numsOrdered = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-const numsRandomOrder = [9, 2, 5, 6, 4, 3, 7, 10, 1, 8];
-const numsReversed = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
-const expectedSort = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
 /**
  * Creates a new sorted array based on the given nums being recursively split
  * and merged.
@@ -93,4 +70,16 @@ const expectedSort = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
  * @param {Array<number>} nums
  * @returns {Array<number>} A New sorted array.
  */
-function mergeSort(nums) {}
+function mergeSort(nums) {
+  if (nums.length === 1) {
+    // return once we hit an array with a single item
+    return nums;
+  }
+
+  const middleIdx = Math.floor(nums.length / 2);
+  const left = nums.slice(0, middleIdx);
+  const right = nums.slice(middleIdx);
+  const sortedLeft = mergeSort(left);
+  const sortedRight = mergeSort(right);
+  return merge(sortedLeft, sortedRight);
+}
