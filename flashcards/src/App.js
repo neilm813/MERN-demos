@@ -1,18 +1,46 @@
-import { useState } from 'react';
+// Generally people like to organize imports from 3rd party packages at the top
+// then from your own files/folders below that.
+
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
 import logo from './logo.svg';
 import './App.css';
-
 import { Flashcard } from './components/Flashcard';
-import flashcardsData from './flashcards.json';
+
+// Importing components on one line is only possible if you add index.js files in folders.
+// import { Flashcard, CircleDotExpansion } from './components';
+import { CircleDotExpansion } from './components';
+// import flashcardsData from './flashcards.json';
 
 function App() {
   const [correctCount, setCorrectCount] = useState(0);
-  const [flashcards, setFlashcards] = useState(flashcardsData);
+  const [flashcards, setFlashcards] = useState(null);
 
   // Form state
   const [category, setCategory] = useState('');
   const [front, setFront] = useState('');
   const [back, setBack] = useState('');
+
+  // If you want to console.log state to see current values
+  // do it here, not after a call to setState b/c setState functions are async.
+
+  useEffect(() => {
+    console.log('useEffect fetching data!');
+    axios
+      .get(
+        'https://opentdb.com/api.php?amount=10&category=23&difficulty=medium&type=boolean'
+      )
+      .then((res) => {
+        console.log(res);
+        setTimeout(() => {
+          setFlashcards(res.data.results);
+        }, 1500);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const handleFlipCardClick = (selectedIdx) => {
     /* 
@@ -81,11 +109,16 @@ function App() {
     setFlashcards(updatedFlashcards);
   };
 
+  console.log('App.js is rendering!');
   return (
     <div style={{ width: '85%', margin: '0 auto' }}>
       <header style={{ textAlign: 'center' }}>
         <h1>Programming FLash Cards</h1>
-        <button onClick={() => setCorrectCount(correctCount + 1)}>
+        <button
+          onClick={() => {
+            setCorrectCount(correctCount + 1);
+          }}
+        >
           Count: {correctCount}
         </button>
         <hr />
@@ -136,17 +169,30 @@ function App() {
       </header>
 
       <main className="flex-row flex-wrap">
-        {flashcards.map((card, i) => {
-          return (
-            <Flashcard
-              key={i}
-              i={i}
-              card={card}
-              handleFlipCardClick={handleFlipCardClick}
-              handleDeleteCardClick={handleDeleteCardClick}
-            />
-          );
-        })}
+        {flashcards !== null && flashcards.length === 0 && (
+          <p>API found no questions!</p>
+        )}
+
+        <CircleDotExpansion loading={flashcards === null} color={'red'} />
+
+        {flashcards !== null &&
+          flashcards.map((card, i) => {
+            return (
+              <Flashcard
+                key={i}
+                i={i}
+                card={card}
+                /* 
+                Advanced bonus these functions should have been passed to
+                useCallback. Because these functions are created every time
+                our component is executed, they will cause this child to
+                rerender b/c it detects these props have 'changed'.
+                */
+                handleFlipCardClick={handleFlipCardClick}
+                handleDeleteCardClick={handleDeleteCardClick}
+              />
+            );
+          })}
       </main>
     </div>
   );

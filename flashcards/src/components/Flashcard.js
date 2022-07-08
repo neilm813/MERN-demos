@@ -8,9 +8,9 @@ export const Flashcard = (props) => {
     >
       <h3>{props.card.category}</h3>
       {props.card.flipped ? (
-        <p>{props.card.back}</p>
+        <p>{props.card.correct_answer}</p>
       ) : (
-        <p>{props.card.front}</p>
+        <p>{props.card.question}</p>
       )}
       <div>
         <button
