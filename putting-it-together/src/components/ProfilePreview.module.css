@@ -1,0 +1,21 @@
+.profilePreview {
+  width: 20%;
+  margin: 0 auto;
+  padding: 10px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  border-radius: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.pic {
+  border: 1px solid lightgray;
+}
+
+.heart {
+  color: red;
+  font-size: 30px;
+  cursor: pointer;
+  word-wrap: break-word;
+}
