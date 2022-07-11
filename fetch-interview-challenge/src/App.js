@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import './App.css';
 
+import { UserTable } from './components';
+
 function App() {
   const [users, setUsers] = useState(null);
   const [error, setError] = useState(null);
@@ -49,7 +51,7 @@ function App() {
       {/* Does the project manager what old data still displayed if new fetch
       fails?
       */}
-      <div>{users && users.map((user, i) => <p key={i}>{user.name}</p>)}</div>
+      <UserTable users={users} />
     </div>
   );
 }
