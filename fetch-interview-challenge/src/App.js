@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import './App.css';
 
+import RingLoader from 'react-spinners/RingLoader';
+
 import { UserTable } from './components';
+import { getUsers } from './services/httpService';
 
 function App() {
   const [users, setUsers] = useState(null);
@@ -10,14 +13,7 @@ function App() {
 
   const handleFetchClick = (_evt) => {
     setIsLoading(true);
-    // fetch('http://httpstat.us/404')
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then((res) => {
-        if (!res.ok) {
-          throw Error(res.statusText);
-        }
-        return res.json();
-      })
+    getUsers()
       .then((users) => {
         setUsers(users);
         setError(null);
@@ -44,7 +40,8 @@ function App() {
           marginBottom: '2rem',
         }}
       >
-        {users === null ? 'Fetch Users' : 'Refresh Users'}
+        {users === null ? 'Fetch Users' : 'Refresh Users'}{' '}
+        <RingLoader loading={isLoading} color="aquamarine" size={20} />
       </button>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <hr />
