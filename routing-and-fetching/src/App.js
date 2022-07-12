@@ -8,11 +8,11 @@ import { NotFound } from './views/NotFound';
 
 function App() {
   return (
-    <fieldset style={{ width: '80%', margin: '0 auto' }}>
-      <legend>App.js</legend>
+    <div style={{ width: '80%', margin: '0 auto', paddingTop: '0.75rem' }}>
       <header>
         <nav className="text-center">
-          <Link to="/launches">Launches</Link>
+          <Link to="/launches">Launches</Link> |{' '}
+          <Link to="/launches/5eb87d13ffd86e000604b360">Famous Launch</Link>
         </nav>
       </header>
 
@@ -34,7 +34,7 @@ function App() {
         */}
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </fieldset>
+    </div>
   );
 }
 
