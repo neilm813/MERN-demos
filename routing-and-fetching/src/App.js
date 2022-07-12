@@ -1,24 +1,40 @@
-import logo from './logo.svg';
+import { Link, Navigate, Route, Routes } from 'react-router-dom';
+
 import './App.css';
+
+import { Launches } from './views/Launches';
+import { OneLaunch } from './views/OneLaunch';
+import { NotFound } from './views/NotFound';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <fieldset style={{ width: '80%', margin: '0 auto' }}>
+      <legend>App.js</legend>
+      <header>
+        <nav className="text-center">
+          <Link to="/launches">Launches</Link>
+        </nav>
       </header>
-    </div>
+
+      <Routes>
+        {/* How to do a redirect */}
+        <Route path="/" element={<Navigate to="/launches" />} />
+
+        <Route index path="/launches" element={<Launches />} />
+
+        {/*
+        :id is a URL param, it is a placeholder var name for some value
+        that will be at that location of the URL when the URL is visited.
+
+        The url param names here relate to the useParams names the component.
+        */}
+        <Route path="/launches/:id" element={<OneLaunch />} />
+        {/*
+          If none of the above routes match, use NotFound view.
+        */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </fieldset>
   );
 }
 
