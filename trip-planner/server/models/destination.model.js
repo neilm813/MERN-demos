@@ -54,5 +54,6 @@ Register schema with mongoose and provide a string to name the collection. This
 also returns a reference to our model that we can use for DB operations.
 */
 const Destination = mongoose.model('Destination', DestinationSchema);
+console.log('Registered Destination model.');
 
 module.exports = Destination;
