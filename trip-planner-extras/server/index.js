@@ -6,13 +6,18 @@ from the terminal but it results in all other files being executed from here.
 // Import packages here from node_modules:
 const express = require('express');
 
-// Environment variables, these may change from dev to prod environments.
-// Look up how to put these environment vars in dotenv package.
-const port = 8000;
-const db_name = 'travel-planner';
+/* 
+Environment configurations that can change between environments (dev, prod)
+are added to a .evn file which is ignored since it may change between
+environments. Otherwise you have to manually edit configuration settings
+in variables in the code rather than in configuration files.
+
+SEE .env-notes.txt
+*/
+require('dotenv').config();
 
 const connectToDbCallback = require('./config/mongoose.config');
-connectToDbCallback(db_name);
+connectToDbCallback(process.env.DB_NAME);
 
 const app = express();
 
@@ -22,6 +27,7 @@ app.use(express.json());
 const destinationRouter = require('./routes/destination.routes');
 app.use('/api/destinations', destinationRouter);
 
+const port = process.env.PORT;
 app.listen(port, () => {
   console.log(`Listening on port ${port} for REQuests to RESpond to.`);
 });
