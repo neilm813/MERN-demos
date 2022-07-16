@@ -79,7 +79,8 @@ module.exports = {
   async createMany(req, res) {
     console.log('createMany method executed');
     try {
-      return await service.createMany(req.body);
+      const destinations = await service.createMany(req.body);
+      return res.json(destinations);
     } catch (error) {
       return res.json(error);
     }

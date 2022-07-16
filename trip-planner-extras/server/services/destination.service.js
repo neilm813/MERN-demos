@@ -37,13 +37,29 @@ module.exports = {
     });
   },
 
+  /* 
+  Promise.allSettled helps know which ones failed and which didn't by returning
+  the status of each in the same order.
+  */
   async createMany(payloads) {
     const createPromises = payloads.map((payload) =>
+      // No await here so it doesn't delay each iteration which is why this
+      // array contains Promises.
       Destination.create(payload)
     );
+
+    console.log('createPromises:', createPromises);
 
     // const createPromises2 = payloads.map((payload) => this.create(payload));
 
     return await Promise.allSettled(createPromises);
   },
+
+  /* 
+  The successful ones will be created and any errors will be given back as
+  one error that tells you what failed but not which one specifically failed
+  */
+  // async createMany(payloads) {
+  //   return await Destination.create(payloads);
+  // },
 };
