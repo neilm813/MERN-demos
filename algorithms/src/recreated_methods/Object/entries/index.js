@@ -32,11 +32,23 @@ const expected2 = [
 
 /**
  * Returns a 2d array of key value pairs from the given obj.
- * - Time: O(?).
- * - Space: O(?).
+ * - Time: O(n) linear n = num of keys in obj.
+ * - Space: O(n) linear
  * @param {Object} obj
  * @typedef {Array<Array<string, any>>} output The nested array should look
  *    like [key, val]
  * @returns {output}
  */
-function entries(obj) {}
+function entries(obj) {
+  const keyValPairs = [];
+
+  for (const key in obj) {
+    // has own property means it is a prop directly on obj, not on it's proto
+    if (obj.hasOwnProperty(key)) {
+      const val = obj[key];
+
+      keyValPairs.push([key, val]);
+    }
+  }
+  return keyValPairs;
+}
