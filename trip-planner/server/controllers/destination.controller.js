@@ -19,7 +19,7 @@ module.exports = {
       })
       // or it gives us an error
       .catch((err) => {
-        return res.json(err);
+        return res.status(400).json(err);
       });
   },
 
@@ -33,7 +33,7 @@ module.exports = {
         return res.json(destinations);
       })
       .catch((err) => {
-        return res.json(err);
+        return res.status(400).json(err);
       });
   },
 
@@ -46,7 +46,7 @@ module.exports = {
         return res.json(destination);
       })
       .catch((err) => {
-        return res.json(err);
+        return res.status(400).json(err);
       });
   },
 
@@ -59,7 +59,7 @@ module.exports = {
         return res.json(destination);
       })
       .catch((err) => {
-        return res.json(err);
+        return res.status(400).json(err);
       });
   },
 
@@ -74,7 +74,7 @@ module.exports = {
         return res.json(destination);
       })
       .catch((err) => {
-        return res.json(err);
+        return res.status(400).json(err);
       });
   },
 
@@ -89,16 +89,15 @@ module.exports = {
           })
           // If something went wrong during .remove().
           .catch((err) => {
-            return res.json(err);
+            return res.status(400).json(err);
           });
       })
       // If something went wrong, during findById
       .catch((err) => {
-        return res.json(err);
+        return res.status(400).json(err);
       });
   },
 
-  // TODO: create many
   // Not needed for exam, just to add lot's of test data at once.
   createMany(req, res) {
     const createPromises = req.body.map((data) => Destination.create(data));
@@ -108,7 +107,7 @@ module.exports = {
         return res.json(outcomes);
       })
       .catch((err) => {
-        console.log(err);
+        return res.status(400).json(err);
       });
   },
 };

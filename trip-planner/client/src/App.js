@@ -31,8 +31,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/destinations" replace />} />
         <Route path="/destinations" index element={<Destinations />} />
-        <Route path="/destinations/:id/edit" element={<EditDestination />} />
-        <Route path="/destinations/:id" element={<Destination />} />
+        <Route path="/destinations/:_id/edit" element={<EditDestination />} />
+        <Route path="/destinations/:_id" element={<Destination />} />
         <Route path="/destinations/new" element={<NewDestination />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

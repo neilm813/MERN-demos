@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const NewDestination = (props) => {
   const navigate = useNavigate();
 
+  const [errors, setErrors] = useState(null);
   const [location, setLocation] = useState('');
   const [description, setDescription] = useState('');
   const [src, setSrc] = useState('');
@@ -20,7 +21,6 @@ const NewDestination = (props) => {
 
   const handleNewDestinationSubmit = (event) => {
     event.preventDefault();
-    console.log(location);
 
     const newDestination = {
       // long-form - key: value format
@@ -57,7 +57,8 @@ const NewDestination = (props) => {
         // setFall(false);
       })
       .catch((err) => {
-        console.log(err);
+        setErrors(err?.response?.data?.errors);
+        console.log(err.response);
       });
   };
 
@@ -72,6 +73,9 @@ const NewDestination = (props) => {
       >
         <div className="form-group mb-2">
           <label className="h6">Location</label>
+          {errors?.location && (
+            <span className="text-danger">{errors.location.message}</span>
+          )}
           <input
             onChange={(event) => {
               setLocation(event.target.value);
@@ -84,6 +88,9 @@ const NewDestination = (props) => {
 
         <div className="form-group mb-2">
           <label className="h6">Description</label>
+          {errors?.description && (
+            <span className="text-danger">{errors.description.message}</span>
+          )}
           <input
             onChange={(event) => {
               setDescription(event.target.value);
@@ -127,7 +134,7 @@ const NewDestination = (props) => {
             onChange={(event) => {
               setSummer(event.target.checked);
             }}
-            value={summer}
+            checked={summer}
             type="checkbox"
             className="form-check-input"
           />{' '}
@@ -139,7 +146,7 @@ const NewDestination = (props) => {
             onChange={(event) => {
               setWinter(event.target.checked);
             }}
-            value={winter}
+            checked={winter}
             type="checkbox"
             className="form-check-input pr-2"
           />{' '}
@@ -151,7 +158,7 @@ const NewDestination = (props) => {
             onChange={(event) => {
               setSpring(event.target.checked);
             }}
-            value={spring}
+            checked={spring}
             type="checkbox"
             className="form-check-input pr-2"
           />{' '}
@@ -163,7 +170,7 @@ const NewDestination = (props) => {
             onChange={(event) => {
               setFall(event.target.checked);
             }}
-            value={fall}
+            checked={fall}
             type="checkbox"
             className="form-check-input pr-2"
           />{' '}
