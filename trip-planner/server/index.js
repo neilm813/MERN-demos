@@ -5,6 +5,7 @@ from the terminal but it results in all other files being executed from here.
 
 // Import packages here from node_modules:
 const express = require('express');
+const cors = require('cors');
 
 // Environment variables, these may change from dev to prod environments.
 const port = 8000;
@@ -17,6 +18,9 @@ const app = express();
 
 // req.body will be undefined without this when receiving JSON.
 app.use(express.json());
+
+// Allow all requests. You can configure this to only allow some.
+app.use(cors());
 
 const addDestinationRoutesCallback = require('./routes/destination.routes');
 addDestinationRoutesCallback(app);

@@ -98,5 +98,17 @@ module.exports = {
       });
   },
 
-  // TODO: Add many
+  // TODO: create many
+  // Not needed for exam, just to add lot's of test data at once.
+  createMany(req, res) {
+    const createPromises = req.body.map((data) => Destination.create(data));
+
+    Promise.allSettled(createPromises)
+      .then((outcomes) => {
+        return res.json(outcomes);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
 };
