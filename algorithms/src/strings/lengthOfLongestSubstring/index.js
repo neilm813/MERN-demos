@@ -21,9 +21,100 @@ const expected4 = 4;
 
 /**
  * Determines the length of the longest substring in the given str.
+ * Starting from each character, go forward as far as possible until a dupe is
+ * found.
+ * - Time: O(n^3) cubed, the .includes is the 2nd nested loop.
+ * - Space: O(n) linear.
  * @param {string} str
  * @returns {number} Length of the longest substring from the given str.
- * - Time: O(?).
- * - Space: O(?).
  */
-function lengthOfLongestSubString(str) {}
+ function lengthOfLongestSubString(str) {
+  let maxLen = 0;
+  let subStr = "";
+
+  for (let i = 0; i < str.length; i++) {
+    subStr = "";
+    const remainingLength = str.length - i;
+
+    // if remaining chars left are fewer than current maxLen
+    // it's not possible for there to be a longer subStr
+    if (remainingLength < maxLen) {
+      return maxLen;
+    }
+
+    for (let j = i; j < str.length; j++) {
+      if (subStr.includes(str[j])) {
+        break;
+      } else {
+        subStr += str[j];
+      }
+    }
+
+    if (subStr.length > maxLen) {
+      maxLen = subStr.length;
+    }
+  }
+  return maxLen;
+}
+
+/**
+ * Time: O(n^2) quadratic.
+ * Space: O(n) linear.
+ */
+function lengthOfLongestSubString2(str) {
+  let maxLen = 0;
+
+  for (let i = 0; i < str.length; i++) {
+    let count = 0;
+    const seen = new Set();
+    const remainingLength = str.length - i;
+
+    // if remaining chars left are fewer than current maxLen
+    // it's not possible for there to be a longer subStr
+    if (remainingLength < maxLen) {
+      return maxLen;
+    }
+
+    for (let j = i; j < str.length; j++) {
+      let char = str[j];
+
+      if (seen.has(char)) {
+        break;
+      } else {
+        seen.add(char);
+        count++;
+      }
+    }
+
+    if (count > maxLen) {
+      maxLen = count;
+    }
+  }
+  return maxLen;
+}
+
+/**
+ * Time: O(n) linear.
+ * Space: O(n) linear.
+ */
+function lengthOfLongestSubString3(str) {
+  const seenChars = {};
+  let longest = 0;
+  let startIndex = 0;
+
+  for (let i = 0; i < str.length; i++) {
+    const char = str[i];
+
+    if (seenChars.hasOwnProperty(char) && startIndex <= seenChars[char]) {
+      startIndex = seenChars[char] + 1;
+    }
+
+    seenChars[char] = i;
+    const diff = i - startIndex + 1;
+
+    if (diff > longest) {
+      longest = diff;
+    }
+  }
+  return longest;
+}
