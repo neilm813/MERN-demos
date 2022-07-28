@@ -24,9 +24,49 @@ const expected4 = 2;
  * A container's length is the distance between indexes and the two sides are
  * the heights at those indexes.
  * @see https://s3-lc-upload.s3.amazonaws.com/uploads/2018/07/17/question_11.jpg
- * - Time: O(?).
- * - Space: O(?).
+ * - Time: O(n) linear.
+ * - Space: O(1) constant.
  * @param {number[]} heights
  * @returns {number} Representing the max area of a container.
  */
-function containerWithMostWater(heights) {}
+ function containerWithMostWater(heights) {
+  let left = 0;
+  let right = heights.length - 1;
+  let maxArea = 0;
+
+  while (left < right) {
+    // area = length * height using shorter height since water overflows
+    // the short side first.
+    const area = (right - left) * Math.min(heights[left], heights[right]);
+    area > maxArea && (maxArea = area);
+    // Increment the idx that points to the shorter wall to find a taller wall.
+    heights[left] < heights[right] ? left++ : right--;
+  }
+  return maxArea;
+}
+
+/**
+ * Finds the container that can hold the most water based on it's area.
+ * A container's length is the distance between indexes and the two sides are
+ * the heights at those indexes.
+ * @see https://s3-lc-upload.s3.amazonaws.com/uploads/2018/07/17/question_11.jpg
+ * - Time: O(n^2) quadratic.
+ * - Space: O(1) constant.
+ * @param {number[]} heights
+ * @returns {number} Representing the max area of a container.
+ */
+function containerWithMostWater2(heights) {
+  let max = 0;
+
+  for (let i = 0; i < heights.length; i++) {
+    for (let j = i + 1; j < heights.length; j++) {
+      // x axis.
+      const length = j - i;
+      // y axis. Limited by shorter wall since water overflows the short side.
+      const height = Math.min(heights[i], heights[j]);
+      const area = length * height;
+      area > max && (max = area);
+    }
+  }
+  return max;
+}
