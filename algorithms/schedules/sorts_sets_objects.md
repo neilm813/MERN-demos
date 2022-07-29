@@ -56,9 +56,10 @@
    - [coronaVirusAtRisk](../src/objects/coronaVirusAtRisk/index.js)
    - [santasNaughtyList](../src/objects/santasNaughtyList/index.js)
 4. Thur
+   - [splitVariantsIntoNewProducts](../src/objects/splitVariantsIntoNewProducts/index.js)
    - [flattenObjectOfArrays](../src/objects/flattenObjectOfArrays/index.js)
-   - [mergeCarts](../src/arrays/mergeCarts/index.js)
 5. Fri
+   - [mergeCarts](../src/arrays/mergeCarts/index.js)
    - [getMaxServings](../src/objects/getMaxServings/index.js)
 
 ---
@@ -79,5 +80,6 @@
    - [containerWithMostWater](../src/arrays/containerWithMostWater/index.js)
    - [compareVersionNumbers](../src/strings/compareVersionNumbers/index.js)
 5. Fri
+   - [splitVariantsIntoNewProducts](../src/objects/splitVariantsIntoNewProducts/index.js)
    - [amazonMusicRuntime](../src/arrays/amazonMusicRuntime/index.js)
    - [canBuildS1FromS2](../src/strings/canBuildS1FromS2/index.js)
