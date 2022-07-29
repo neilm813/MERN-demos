@@ -26,29 +26,29 @@ const datoEntity1 = {
   /** Dato entity id. */
   id: 1,
   attributes: {
-    title: "backpack",
-    sku: "3d0921",
+    title: 'backpack',
+    sku: '3d0921',
     variants: [
       {
         /** Dato variant id. */
         id: 1,
-        attributes: { name: "cross-strap", price: 35, _v: 3 },
+        attributes: { name: 'cross-strap', price: 35, _v: 3 },
       },
       {
         id: 2,
-        attributes: { name: "travel-40L", price: 68, _v: 1 },
+        attributes: { name: 'travel-40L', price: 68, _v: 1 },
       },
       {
         id: 3,
-        attributes: { name: "gym-pack", price: 32, _v: 2 },
+        attributes: { name: 'gym-pack', price: 32, _v: 2 },
       },
       {
         id: 4,
-        attributes: { name: "camping", price: 36, _v: 4 },
+        attributes: { name: 'camping', price: 36, _v: 4 },
       },
       {
         id: 5,
-        attributes: { name: "duffle", price: 45, _v: 3 },
+        attributes: { name: 'duffle', price: 45, _v: 3 },
       },
     ],
   },
@@ -58,41 +58,41 @@ const datoEntity1 = {
 const expected1 = [
   {
     id: null,
-    title: "backpack",
-    sku: "3d0921",
+    title: 'backpack',
+    sku: '3d0921',
     variants: [
       {
-        name: "cross-strap",
+        name: 'cross-strap',
         price: 35,
       },
       {
-        name: "travel-40L",
+        name: 'travel-40L',
         price: 68,
       },
     ],
   },
   {
     id: null,
-    title: "backpack",
-    sku: "3d0921",
+    title: 'backpack',
+    sku: '3d0921',
     variants: [
       {
-        name: "gym-pack",
+        name: 'gym-pack',
         price: 32,
       },
       {
-        name: "camping",
+        name: 'camping',
         price: 36,
       },
     ],
   },
   {
     id: null,
-    title: "backpack",
-    sku: "3d0921",
+    title: 'backpack',
+    sku: '3d0921',
     variants: [
       {
-        name: "duffle",
+        name: 'duffle',
         price: 45,
       },
     ],
@@ -102,21 +102,21 @@ const expected1 = [
 const datoEntity2 = {
   id: 2,
   attributes: {
-    title: "helmet",
-    sku: "5c3449",
+    title: 'helmet',
+    sku: '5c3449',
     variants: [
       {
         id: 1,
-        attributes: { name: "skateboard", price: 42, _v: 2 },
+        attributes: { name: 'skateboard', price: 42, _v: 2 },
       },
     ],
   },
 };
 
 const expected2 = {
-  title: "helmet",
-  sku: "5c3449",
-  variants: [{ name: "skateboard", price: 42 }],
+  title: 'helmet',
+  sku: '5c3449',
+  variants: [{ name: 'skateboard', price: 42 }],
 };
 
 /**
@@ -128,4 +128,56 @@ const expected2 = {
  * @param {number} variantLimit The max number of variants that the shopify
  *    api will allow.
  */
-function splitVariantsIntoNewProducts(datoEntity, variantLimit = 2) {}
+function splitVariantsIntoNewProducts(datoEntity, variantLimit = 2) {
+  const newShopifyProducts = [];
+  let currentNewProduct = shopifyProductFactory(datoEntity);
+
+  for (const variant of datoEntity.attributes.variants) {
+    if (currentNewProduct.variants.length === variantLimit) {
+      newShopifyProducts.push(currentNewProduct);
+      currentNewProduct = shopifyProductFactory(datoEntity);
+    }
+
+    const { name, price } = variant.attributes;
+    currentNewProduct.variants.push({
+      name,
+      price,
+    });
+  }
+
+  newShopifyProducts.push(currentNewProduct);
+  return newShopifyProducts;
+}
+
+function splitVariantsIntoNewProducts2(datoEntity, variantLimit = 2) {
+  const newShopifyProducts = [];
+  // Break reference so we can mutate the copy.
+  const allVariants = [...datoEntity.attributes.variants].map(
+    ({ attributes: { name, price } }) => {
+      return {
+        name,
+        price,
+      };
+    }
+  );
+
+  while (allVariants.length > 0) {
+    const variantsToAdd = allVariants.splice(0, variantLimit);
+    const newShopifyProduct = shopifyProductFactory(datoEntity);
+    newShopifyProduct.variants = variantsToAdd;
+    newShopifyProducts.push(newShopifyProduct);
+  }
+
+  return newShopifyProducts;
+}
+
+function shopifyProductFactory(datoEntity) {
+  const { title, sku } = datoEntity.attributes;
+
+  return {
+    id: null,
+    title,
+    sku,
+    variants: [],
+  };
+}
