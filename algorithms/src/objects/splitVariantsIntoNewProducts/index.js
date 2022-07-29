@@ -1,17 +1,22 @@
 /*
 This is a small piece of a real world on-the-job problem.
+
 The client your contracting company is building a site for is tired of
 having to do duplicate work and has asked you to automate a task.
+
 Whenever they create a new product in the Dato Content Management System
 that contains variants, they have to also go to their shopify admin panel
 and create the product and variants there as well, however, shopify limits
 the number of variants each product can have to 100, so they sometimes
 have to create multiple products in shopify to fit all the variants.
+
 Dato has a webhook that can execute your function onNewProduct event and give
 you the payload containing the new product from Dato and it's variants.
+
 Your function needs to create the minimum number of new products required to
 fit all the variants so that you can send these new products to the shopify API
 to automatically create them.
+
 To simplify testing, the variant limit will be 2, but it should be flexible in
 case it ever changes.
 DO NOT mutate given params.
