@@ -1,6 +1,7 @@
 # Sorts, Sets, & Objects Algo Schedule
 
 - For Full Time MERN stack.
+- [Pair Programming](../pair-programming.md)
 
 ---
 
@@ -10,8 +11,9 @@
 
 1. Mon
    - [bubbleSort](../src/sorts/bubbleSort/index.js)
-   - [selectionSort](../src/sorts/selectionSort/index.js)
+     - During review, show the flexible implementation as well compared to the built in sort. Every sort can be made more flexible in this way. Without this, our sort implementations are only useful in a single situation: sorting numbers in ascending order.
 2. Tue
+   - [selectionSort](../src/sorts/selectionSort/index.js)
    - [insertionSort](../src/sorts/insertionSort/index.js)
 3. Wed
    - [mergeSort](../src/sorts/mergeSort/index.js)
@@ -56,9 +58,10 @@
    - [coronaVirusAtRisk](../src/objects/coronaVirusAtRisk/index.js)
    - [santasNaughtyList](../src/objects/santasNaughtyList/index.js)
 4. Thur
-   - [flattenObjectOfArrays](../src/objects/flattenObjectOfArrays/index.js)
-   - [mergeCarts](../src/arrays/mergeCarts/index.js)
+   - [flattenObjectOfArrays](../src/fromJob/flattenObjectOfArrays/index.js)
+   - [splitVariantsIntoNewProducts](../src/fromJob/splitVariantsIntoNewProducts/index.js)
 5. Fri
+   - [mergeCarts](../src/arrays/mergeCarts/index.js)
    - [getMaxServings](../src/objects/getMaxServings/index.js)
 
 ---
@@ -74,10 +77,9 @@
 3. Wed
    - [rehash](../src/strings/rehash/index.js)
    - [lengthOfLongestSubstring](../src/strings/lengthOfLongestSubstring/index.js)
-
 4. Thur
    - [containerWithMostWater](../src/arrays/containerWithMostWater/index.js)
    - [compareVersionNumbers](../src/strings/compareVersionNumbers/index.js)
 5. Fri
-   - [amazonMusicRuntime](../src/arrays/amazonMusicRuntime/index.js)
+   - [musicRuntime](../src/amazon/musicRuntime/index.js)
    - [canBuildS1FromS2](../src/strings/canBuildS1FromS2/index.js)
