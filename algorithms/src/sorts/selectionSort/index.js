@@ -29,7 +29,31 @@ const expected = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
  * Best: O(n^2) quadratic.
  * Average: O(n^2) quadratic.
  * Worst: O(n^2) quadratic.
- * @param {Array<number>} nums
- * @returns {Array<number>} The given array after being sorted.
+ * @param   {Array<number>} nums
+ * @return  {Array<number>} The given array after being sorted.
  */
-function selectionSort(nums = []) {}
+function selectionSort(nums = []) {
+  const len = nums.length;
+  let selectedIdx = 0;
+  let idxOfCurrMin = 0;
+
+  while (selectedIdx < len) {
+    for (let i = selectedIdx; i < len; i++) {
+      if (nums[i] < nums[idxOfCurrMin]) {
+        idxOfCurrMin = i;
+      }
+    }
+
+    if (nums[selectedIdx] !== nums[idxOfCurrMin]) {
+      // Swap.
+      [nums[selectedIdx], nums[idxOfCurrMin]] = [
+        nums[idxOfCurrMin],
+        nums[selectedIdx],
+      ];
+    }
+    selectedIdx += 1;
+    // reset idxOfCurrMin to the next selected index we are going to work with to find the next min
+    idxOfCurrMin = selectedIdx;
+  }
+  return nums;
+}
