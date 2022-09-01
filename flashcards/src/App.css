@@ -15,38 +15,6 @@
   flex-wrap: wrap;
 }
 
-.card {
-  padding: 10px;
-  width: 20%;
-  border-radius: 5px;
-  margin-bottom: 15px;
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-  background-color: whitesmoke;
-}
-
-.card:not(:last-child) {
-  margin-right: 15px;
-}
-
-.card.flipped {
-  background-color: aliceblue;
-}
-
-/* front hidden when flipped */
-.card.flipped .front {
-  display: none;
-}
-
-/* back hidden by default */
-.card .back {
-  display: none;
-}
-
-/* back shown when flipped */
-.card.flipped .back {
-  display: block;
-}
-
 .bg-aliceblue {
   background-color: aliceblue;
 }
