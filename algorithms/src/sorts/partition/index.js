@@ -102,3 +102,7 @@ function partition(nums, leftIdx = 0, rightIdx = nums.length - 1) {
     rightIdx -= 1;
   }
 }
+
+module.exports = {
+  partition: partition,
+};
