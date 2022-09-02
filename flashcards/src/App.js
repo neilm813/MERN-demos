@@ -22,8 +22,23 @@ function App() {
       </header>
 
       <main>
-        <Flashcards />
-        <Flashcards />
+        <Flashcards
+          queryParams={{
+            amount: 10,
+            category: 18,
+            difficulty: 'medium',
+            type: 'boolean',
+          }}
+        />
+
+        <Flashcards
+          queryParams={{
+            amount: 5,
+            category: 11,
+            difficulty: 'easy',
+            type: 'boolean',
+          }}
+        />
       </main>
     </div>
   );

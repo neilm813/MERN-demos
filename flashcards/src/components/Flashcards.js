@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import flashcardsData from '../data/flashcards.json';
+import { getTriviaQuestions } from '../services/triviaApiService';
 import { AddFlashcardForm } from './AddFlashcardForm';
 
 import { Flashcard } from './Flashcard';
 
 export const Flashcards = (props) => {
+  const { queryParams } = props;
+
   // Array destructuring is shorthand for giving a var name to indexed items:
   /* 
   const flashcardsStatePair = useState(flashcardsData);
@@ -13,7 +15,25 @@ export const Flashcards = (props) => {
   const setFlashcards = flashcardsStatePair[1];
  */
 
-  const [flashcards, setFlashcards] = useState(flashcardsData);
+  const [flashcards, setFlashcards] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // This runs any time the component re-renders-any time any state changes.
+  useEffect(() => {
+    setIsLoading(true);
+
+    getTriviaQuestions(queryParams)
+      .then((data) => {
+        console.log(data.results);
+        setFlashcards(data.results);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, [queryParams]);
 
   const handleFlipCardClick = (event, selectedIdx) => {
     const updatedFlashcards = flashcards.map((card, i) => {
@@ -59,20 +79,22 @@ export const Flashcards = (props) => {
     <div>
       <AddFlashcardForm addNewFlashcard={addNewFlashcard} />
       <hr />
+      {isLoading && <p>Loading...</p>}
 
       <div className="flex-row flex-wrap">
-        {flashcards.map((card, i) => {
-          // key should be an id if available instead of an index.
-          return (
-            <Flashcard
-              key={i}
-              card={card}
-              handleFlipCardClick={handleFlipCardClick}
-              handleDelete={handleDelete}
-              idx={i}
-            />
-          );
-        })}
+        {flashcards !== null &&
+          flashcards.map((card, i) => {
+            // key should be an id if available instead of an index.
+            return (
+              <Flashcard
+                key={i}
+                card={card}
+                handleFlipCardClick={handleFlipCardClick}
+                handleDelete={handleDelete}
+                idx={i}
+              />
+            );
+          })}
       </div>
     </div>
   );
