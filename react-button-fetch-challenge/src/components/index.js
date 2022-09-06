@@ -1,3 +1,4 @@
+export * from './Card';
 export * from './CircleImg';
 export * from './LoadingSpinner';
 export * from './ShowError';
