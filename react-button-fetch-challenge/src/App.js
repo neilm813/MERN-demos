@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import './App.css';
 import { getErrorResponse, getUsers } from './services';
-import { User } from './components';
+import { LoadingSpinner, User } from './components';
 
 const App = () => {
   const [users, setUsers] = useState(null);
@@ -15,7 +15,11 @@ const App = () => {
     getUsers()
       .then((data) => setUsers(data.users))
       .catch((error) => setUsersError(error))
-      .finally(() => setIsLoading(false));
+      .finally(() =>
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 3000)
+      );
   };
 
   return (
@@ -23,6 +27,18 @@ const App = () => {
       <button onClick={handleGetUsersClick} type="button">
         Get Users
       </button>
+
+      {isLoading && (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginBottom: '2rem',
+          }}
+        >
+          <LoadingSpinner />
+        </div>
+      )}
 
       {users && (
         <section>
