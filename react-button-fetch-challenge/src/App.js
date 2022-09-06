@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import './App.css';
 import { getErrorResponse, getUsers } from './services';
-import { LoadingSpinner, User } from './components';
+import { LoadingSpinner, ShowError, User } from './components';
 
 const App = () => {
   const [users, setUsers] = useState(null);
@@ -12,21 +12,20 @@ const App = () => {
   const handleGetUsersClick = () => {
     setIsLoading(true);
 
+    // getErrorResponse()
     getUsers()
       .then((data) => setUsers(data.users))
       .catch((error) => setUsersError(error))
-      .finally(() =>
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 3000)
-      );
+      .finally(() => setIsLoading(false));
   };
 
   return (
     <div>
-      <button onClick={handleGetUsersClick} type="button">
-        Get Users
-      </button>
+      <div style={{ marginBottom: '3rem' }}>
+        <button onClick={handleGetUsersClick} type="button">
+          {users === null ? 'Get' : 'Refresh'} Users
+        </button>
+      </div>
 
       {isLoading && (
         <div
@@ -40,8 +39,16 @@ const App = () => {
         </div>
       )}
 
+      <ShowError error={usersError} />
+
       {users && (
-        <section>
+        <section
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
           {users.map((user) => (
             <User key={user.id} user={user} />
           ))}

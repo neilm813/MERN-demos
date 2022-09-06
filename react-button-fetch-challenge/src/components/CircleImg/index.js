@@ -1,0 +1,1 @@
+export { CircleImg } from './CircleImg';

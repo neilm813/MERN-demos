@@ -1,3 +1,7 @@
+import styles from './User.module.css';
+
+import { CircleImg } from '../CircleImg';
+
 export const User = (props) => {
   const { user } = props;
 
@@ -5,14 +9,19 @@ export const User = (props) => {
     return null;
   }
 
-  const { email, firstName, lastName, username } = user;
+  const { email, image, firstName, lastName, username } = user;
 
   return (
-    <div>
+    <div className={styles.container}>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <CircleImg src={image} alt={`${firstName} ${lastName}`} width="50%" />
+      </div>
       <h2>
         {firstName} {lastName} ({username})
       </h2>
-      <p>{email}</p>
+      <p>
+        <a href={`mailto:${email}`}>{email}</a>
+      </p>
     </div>
   );
 };
