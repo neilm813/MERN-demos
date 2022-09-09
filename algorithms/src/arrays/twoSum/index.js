@@ -46,6 +46,23 @@ function twoSum(nums, targetSum) {
   return [];
 }
 
+// Technically a Map is better to use for objects with keys added dynamicall.
+function twoSumMap(nums, targetSum) {
+  const numsToIndex = new Map();
+
+  for (let i = 0; i < nums.length; i++) {
+    const numA = nums[i];
+    const numB = targetSum - numA;
+
+    if (numsToIndex.has(numB)) {
+      const idxB = numsToIndex[numB];
+      return [idxB, i];
+    }
+    numsToIndex.set(numA, i);
+  }
+  return [];
+}
+
 /**
  * - Time: O(n^2) quadratic.
  * - Space: O(1) constant.
