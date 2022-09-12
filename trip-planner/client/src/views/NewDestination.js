@@ -48,6 +48,9 @@ export const NewDestination = (props) => {
       })
       .catch((error) => {
         console.log(error);
+        // `?.` allows you to safely access keys that may not exist, instead of
+        // crashing the app if a key doesn't exist, it will return undefined.
+        setErrors(error?.response?.data?.errors);
       });
   };
 
@@ -56,6 +59,9 @@ export const NewDestination = (props) => {
       <form onSubmit={(e) => handleNewDestinationSubmit(e)}>
         <div className="form-group">
           <label className="h6">Location</label>
+          {errors?.location && (
+            <span style={{ color: 'red' }}> {errors?.location?.message}</span>
+          )}
           <input
             onChange={(event) => {
               setLocation(event.target.value);
@@ -67,6 +73,12 @@ export const NewDestination = (props) => {
 
         <div className="form-group">
           <label className="h6">Description</label>
+          {errors?.description && (
+            <span style={{ color: 'red' }}>
+              {' '}
+              {errors?.description?.message}
+            </span>
+          )}
           <input
             onChange={(event) => {
               setDescription(event.target.value);
@@ -78,6 +90,9 @@ export const NewDestination = (props) => {
 
         <div className="form-group">
           <label className="h6">Media URL</label>
+          {errors?.src && (
+            <span style={{ color: 'red' }}> {errors?.src?.message}</span>
+          )}
           <input
             onChange={(event) => {
               setSrc(event.target.value);
@@ -89,6 +104,9 @@ export const NewDestination = (props) => {
 
         <div className="form-group">
           <label className="h6">Media Type</label>
+          {errors?.srcType && (
+            <span style={{ color: 'red' }}> {errors?.srcType?.message}</span>
+          )}
           <select
             onChange={(event) => {
               setSrcType(event.target.value);

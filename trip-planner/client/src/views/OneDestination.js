@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import { getDestinationById } from '../services/internalApiService';
+import {
+  deleteDestinationById,
+  getDestinationById,
+} from '../services/internalApiService';
 
 export const OneDestination = (props) => {
   const [destination, setDestination] = useState(null);
   // Get the `:id` url parameter data.
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getDestinationById(id)
@@ -24,6 +28,16 @@ export const OneDestination = (props) => {
     return null;
   }
 
+  const handleDeleteClick = () => {
+    deleteDestinationById(id)
+      .then((deletedDestination) => {
+        navigate('/destinations');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   // We can only safely use the data to render and destructure now since
   // we checked it's not null.
   const { location, description, summer, winter, spring, fall, srcType, src } =
@@ -35,7 +49,7 @@ export const OneDestination = (props) => {
       <p>{description}</p>
       <h5>Travel Seasons:</h5>
       {/* Display only the `true` seasons. */}
-      <ul className="list-group">
+      <ul className="list-group mb-3">
         {summer && <li className="list-group-item">Summer</li>}
         {winter && <li className="list-group-item">Winter</li>}
         {spring && <li className="list-group-item">Spring</li>}
@@ -70,6 +84,17 @@ export const OneDestination = (props) => {
           className="shadow rounded"
         ></iframe>
       )}
+
+      <div className="mt-2">
+        <button
+          onClick={(e) => {
+            handleDeleteClick();
+          }}
+          className="btn btn-sm btn-outline-danger mx-1"
+        >
+          Delete
+        </button>
+      </div>
     </div>
   );
 };

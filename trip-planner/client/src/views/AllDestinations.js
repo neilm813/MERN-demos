@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { getAllDestinations } from '../services/internalApiService';
+import {
+  deleteDestinationById,
+  getAllDestinations,
+} from '../services/internalApiService';
 
 // Named export: import { AllDestinations, Name2 } from './components/AllDestinations';
 export const AllDestinations = (props) => {
@@ -21,6 +24,21 @@ export const AllDestinations = (props) => {
         console.log(error);
       });
   }, []);
+
+  const handleDeleteClick = (idToDelete) => {
+    deleteDestinationById(idToDelete)
+      .then((deletedDestination) => {
+        const filteredDestinations = destinations.filter((destination) => {
+          return destination._id !== idToDelete;
+        });
+
+        console.log('deletedDestination:', deletedDestination);
+        setDestinations(filteredDestinations);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div className="w-50 mx-auto text-center">
@@ -44,6 +62,24 @@ export const AllDestinations = (props) => {
               {spring && <li className="list-group-item">Spring</li>}
               {fall && <li className="list-group-item">Fall</li>}
             </ul>
+
+            <div className="mt-2">
+              <button
+                onClick={(e) => {
+                  handleDeleteClick(_id);
+                }}
+                className="btn btn-sm btn-outline-danger mx-1"
+              >
+                Delete
+              </button>
+
+              <Link
+                to={`/destinations/${_id}/edit`}
+                className="btn btn-sm btn-outline-warning mx-1"
+              >
+                Edit
+              </Link>
+            </div>
           </div>
         );
       })}
