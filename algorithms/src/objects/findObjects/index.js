@@ -35,16 +35,37 @@ const expected2 = [
 
 /**
  * Finds the objects that match the given search criteria.
- * - Time: O(?).
- * - Space: O(?).
+ * - Time: O(n * m) n = collection.length, m = num of keys in criteria.
+ * - Space: O(n) linear. All objects in collection could be a match.
  * @param {Object} criteria
  * @param {Array<Object>} collection
  * @returns {Array<Object>} The found objects.
  */
-function findObjects(criteria, collection) {}
+function findObjects(criteria, collection) {
+  const foundDocuments = [];
 
-/**
- * - Time: O(?).
- * - Space: O(?).
- */
-function findObjectsFunctional(criteria, collection) {}
+  for (const item of collection) {
+    let isMatch = true;
+
+    for (const searchKey in criteria) {
+      const searchVal = criteria[searchKey];
+
+      if (
+        item.hasOwnProperty(searchKey) === false ||
+        item[searchKey] !== searchVal
+      ) {
+        isMatch = false;
+        break;
+      }
+    }
+    if (isMatch) {
+      foundDocuments.push(item);
+    }
+  }
+  return foundDocuments;
+}
+
+const functionalFindObjects = (criteria, collection) =>
+  collection.filter((item) =>
+    Object.keys(criteria).every((key) => item[key] === criteria[key])
+  );
