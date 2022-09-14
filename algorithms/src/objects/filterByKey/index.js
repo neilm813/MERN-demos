@@ -90,13 +90,84 @@ const expected4 = [
 ];
 
 /**
- * Filters the given items based on the search criteria using a startsWith
- * search method.
- * - Time: O(?).
- * - Space: O(?).
+ * Filters the given items based on the search criteria.
+ * - Time: O(n * (searchBy.length + searchFor.length)) n = items.length.
+ *    The searchBy.length + searchFor.length is due to the two .toLowerCase
+ *    methods which loop through the strings to lowerCase them.
+ * - Space: O(1) constant.
  * @param {Array<Object>} items The items to be filtered.
- * @param {string} searchFor The value of the given key to search for.
  * @param {string} searchBy The key to search by.
+ * @param {string} searchFor The value of the given key to search for.
  * @returns {Array<Objects>} The matched items.
  */
-function functionalFilterByKey(items, searchFor, searchBy) {}
+function functionalFilterByKey(
+  items,
+  searchFor,
+  searchBy,
+  stringSearchMethod = 'startsWith'
+) {
+  return items.filter((item) =>
+    item[searchBy].toLowerCase()[stringSearchMethod](searchFor.toLowerCase())
+  );
+}
+
+/* 
+  Reminder - bracket notation is needed instead of dot notation when: 
+    - the key / prop is stored in a variable
+    - key is not a string, the brackets will auto convert it to a string (like with array bracket indexing)
+  Bracket or dot notation simply accesses / retrieves the value of that key, whatever comes after is acting on the value
+*/
+console['log']('bracket console log.');
+
+// access the log method and save it as a to a var via reference to the original log method
+const print1 = console.log;
+const print2 = console['log'];
+
+print1('print var references log method from dot notation.');
+print2('print var references log method from bracket notation.');
+
+let consoleMethod = 'log';
+console[consoleMethod]('name of method saved to var.');
+
+consoleMethod = 'table';
+console[consoleMethod](['a', 'b', 'c']);
+
+function filterByKeyStartsWith(
+  items,
+  searchFor,
+  searchBy,
+  stringSearchMethod = 'startsWith'
+) {
+  const filteredItems = [];
+
+  for (const item of items) {
+    if (
+      item[searchBy].toLowerCase()[stringSearchMethod](searchFor.toLowerCase())
+    ) {
+      filteredItems.push(item);
+    }
+  }
+  return filteredItems;
+}
+
+// early exit via not committing to lowerCasing full string
+// this would require a lot more hard-coding to handle the bonus search method
+function filterByKeyStartsWith2(items, searchFor, searchBy) {
+  const filteredItems = [];
+
+  for (const item of items) {
+    let match = true;
+    let searchVal = item[searchBy];
+
+    for (let i = 0; i < searchFor.length; i++) {
+      if (searchVal[i].toLowerCase() !== searchFor[i].toLowerCase()) {
+        match = false;
+        break;
+      }
+    }
+    if (match) {
+      filteredItems.push(item);
+    }
+  }
+  return filteredItems;
+}
