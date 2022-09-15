@@ -58,8 +58,8 @@
    - [coronaVirusAtRisk](../src/objects/coronaVirusAtRisk/index.js)
    - [santasNaughtyList](../src/objects/santasNaughtyList/index.js)
 4. Thur
-   - [flattenObjectOfArrays](../src/fromJob/flattenObjectOfArrays/index.js)
    - [splitVariantsIntoNewProducts](../src/fromJob/splitVariantsIntoNewProducts/index.js)
+   - [flattenObjectOfArrays](../src/fromJob/flattenObjectOfArrays/index.js)
 5. Fri
    - [mergeCarts](../src/arrays/mergeCarts/index.js)
    - [getMaxServings](../src/objects/getMaxServings/index.js)
