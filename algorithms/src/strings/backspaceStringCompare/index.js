@@ -31,11 +31,66 @@ const expected4 = false;
 /**
  * Determines if the given strings are equal after the backspace characters
  * "#" are processed.
- * - Time: O(?).
- * - Space: O(?).
+ * - Time: O(n + m + p) -> O(n) linear. n = S.length, m = T.length from the
+ *    getBackspacedStack call. p = the length of S and T after the backspaces
+ *    were removed.
+ * Best: O(n + m) because the earliest exit is after the two getBackspacedStack
+ *    calls.
+ * - Space: O(n + m) -> O(n).
  * @param {string} S
  * @param {string} T
  * @returns {boolean} Whether the given strings are equal after backspaces
  *    have been processed.
  */
-function backspaceStringCompare(S, T) {}
+function backspaceStringCompare(S, T) {
+  const sBackspaced = getBackspacedStack(S);
+  const tBackspaced = getBackspacedStack(T);
+
+  if (sBackspaced.length !== tBackspaced.length) {
+    return false;
+  }
+
+  for (let i = 0; i < sBackspaced.length; i++) {
+    if (sBackspaced[i] !== tBackspaced[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function getBackspacedStack(str) {
+  const backspacedStack = [];
+
+  for (const char of str) {
+    if (char !== '#') {
+      backspacedStack.push(char);
+    } else if (backspacedStack.length > 0) {
+      backspacedStack.pop();
+    }
+  }
+
+  return backspacedStack;
+}
+
+const backspaceCompare2 = (S, T) =>
+  processBackspaces(S) === processBackspaces(T);
+
+function processBackspaces(s) {
+  let backspaceCount = 0;
+  let newS = '';
+
+  for (let i = s.length - 1; i >= 0; --i) {
+    let isBackspace = s[i] === '#';
+
+    if (backspaceCount > 0 && !isBackspace) {
+      backspaceCount--;
+    } else if (isBackspace) {
+      backspaceCount++;
+    } else {
+      // prepend so the strings aren't reversed due to looping backwards,
+      // however, it wouldn't break the final comparison if both are reversed.
+      newS = s[i] + newS;
+    }
+  }
+  return newS;
+}
