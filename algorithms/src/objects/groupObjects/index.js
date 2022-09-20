@@ -82,31 +82,31 @@ const expected = {
  *    string keys and array of objects as values.
  */
 function groupObjects(items, groupByKey = 'category') {
-  const table = {};
+  const groupedItemsMap = new Map();
 
   for (let i = 0; i < items.length; i++) {
     const item = items[i];
-    const lowerCaseCat = item[groupByKey].toLowerCase();
+    const lowerCaseGroupByKey = item[groupByKey].toLowerCase();
 
-    if (!table.hasOwnProperty(lowerCaseCat)) {
-      table[lowerCaseCat] = [];
+    if (!groupedItemsMap.hasOwnProperty(lowerCaseGroupByKey)) {
+      groupedItemsMap.set(lowerCaseGroupByKey, []);
     }
 
-    table[lowerCaseCat].push(item);
+    groupedItemsMap.get(lowerCaseGroupByKey).push(item);
   }
 
-  return table;
+  return groupedItemsMap;
 }
 
 const groupObjectsReduce = (items, groupByKey = 'category') =>
-  items.reduce((table, item) => {
-    const lowerCaseCat = item[groupByKey].toLowerCase();
+  items.reduce((hashMap, item) => {
+    const lowerCaseGroupByKey = item[groupByKey].toLowerCase();
 
-    if (!table.hasOwnProperty(lowerCaseCat)) {
-      table[lowerCaseCat] = [];
+    if (!hashMap.get(lowerCaseGroupByKey)) {
+      hashMap.set(lowerCaseGroupByKey, []);
     }
 
-    table[lowerCaseCat].push(item);
+    hashMap.get(lowerCaseGroupByKey).push(item);
 
-    return table;
-  }, {});
+    return hashMap;
+  }, new Map());
