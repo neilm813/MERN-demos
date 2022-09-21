@@ -9,6 +9,7 @@ import {
 // Named export: import { AllDestinations, Name2 } from './components/AllDestinations';
 export const AllDestinations = (props) => {
   const [destinations, setDestinations] = useState([]);
+  const [filteredDestinations, setFilteredDestinations] = useState([]);
 
   /* 
   Empty arr as second arguments means it will only run on mount, not on other
@@ -19,6 +20,7 @@ export const AllDestinations = (props) => {
       .then((data) => {
         console.log(data);
         setDestinations(data);
+        setFilteredDestinations(data);
       })
       .catch((error) => {
         console.log(error);
@@ -40,11 +42,30 @@ export const AllDestinations = (props) => {
       });
   };
 
+  const handleChangeSearch = (event) => {
+    const searchLocation = event.target.value.toLowerCase();
+
+    if (searchLocation === '') {
+      return setFilteredDestinations(destinations);
+    }
+
+    const updatedFilteredDestinations = destinations.filter((destination) => {
+      return destination.location.toLowerCase().includes(searchLocation);
+    });
+
+    setFilteredDestinations(updatedFilteredDestinations);
+  };
+
   return (
     <div className="w-50 mx-auto text-center">
       <h2>Travel Destinations!</h2>
 
-      {destinations.map((destination) => {
+      <div>
+        <label>Search location:</label>
+        <input onChange={handleChangeSearch} type="text" />
+      </div>
+
+      {filteredDestinations.map((destination) => {
         const { _id, location, description, summer, winter, spring, fall } =
           destination;
 
