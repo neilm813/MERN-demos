@@ -30,11 +30,42 @@ const expected5 = false;
 // Explanation: strB5 does not have enough "l" chars.
 
 /**
- * Determines whether s1 can be built using the chars of s2.
- * - Time: O(?).
- * - Space: O(?).
- * @param {string} s1
- * @param {string} s2
+ * Determines whether neededChars can be built using the chars of availableChars.
+ * - Time: O(n + m) -> O(n) linear, n = neededChars length,
+ *    m = availableChars length.
+ * - Space: O(m) -> O(n) since it's still linear just call it n for simplicity.
+ * @param {string} neededChars
+ * @param {string} availableChars
  * @returns {boolean}
  */
-function canBuildS1FromS2(s1, s2) {}
+function canBuildS1FromS2(neededChars, availableChars) {
+  if (availableChars.length < neededChars.length) {
+    return false;
+  }
+
+  const availableCharsFreq = {};
+
+  for (const availableChar of availableChars) {
+    const availableCharLower = availableChar.toLowerCase();
+
+    if (availableCharsFreq.hasOwnProperty(availableCharLower)) {
+      availableCharsFreq[availableCharLower]++;
+    } else {
+      availableCharsFreq[availableCharLower] = 1;
+    }
+  }
+
+  for (const neededChar of neededChars) {
+    const neededCharLower = neededChar.toLowerCase();
+    const isCharUnavailable =
+      availableCharsFreq.hasOwnProperty(neededCharLower) === false ||
+      availableCharsFreq[neededCharLower] === 0;
+
+    if (isCharUnavailable) {
+      return false;
+    } else {
+      availableCharsFreq[neededCharLower]--;
+    }
+  }
+  return true;
+}
