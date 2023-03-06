@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { errorHandler } = require('./middleware/error-handling')
+const { errorHandler } = require('./middleware/error-handling');
 
 // Environment vars
 const port = 8000;
@@ -29,6 +29,4 @@ app.use(express.json());
 app.use('/api/destinations', destinationRouter);
 app.use(errorHandler);
 
-app.listen(port, () =>
-  console.log(`Listening on port ${port} for REQuests to RESpond to.`)
-);
+app.listen(port, () => console.log(`Listening on port ${port} for REQuests to RESpond to.`));
