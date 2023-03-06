@@ -17,7 +17,6 @@ const isEven1 = (num) => num % 2 === 0;
 const isEven2 = (num) => num % 2 === 0;
 
 const isEven3 = (num) => {
-  console.log('lkdfs');
   return num % 2 === 0;
 };
 
