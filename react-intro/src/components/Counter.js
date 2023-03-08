@@ -47,6 +47,7 @@ export class Counter extends React.Component {
       <div style={{ border: `2px solid ${this.props.color || 'lightblue'}`, padding: 5 }}>
         <h2>{this.props.title}</h2>
         <h3>{this.state.count}</h3>
+
         <button
           onClick={(e) => {
             this.handleCount();
@@ -54,6 +55,7 @@ export class Counter extends React.Component {
         >
           Increase
         </button>
+
         <button
           onClick={(e) => {
             this.handleCount(false);
@@ -61,6 +63,7 @@ export class Counter extends React.Component {
         >
           Decrease
         </button>
+
         <button
           onClick={(e) => {
             this.handleReset();
