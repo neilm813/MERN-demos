@@ -14,7 +14,7 @@ export class Counter extends React.Component {
     // change and needs to be re-displayed.
     this.state = {
       // If start is not provided use 0
-      count: this.props.start || 0,
+      count: this.props.counter.start || 0,
     };
   }
 
@@ -27,7 +27,7 @@ export class Counter extends React.Component {
     */
 
     // If step is not passed in, use 1, otherwise use the provided amount.
-    const incrementAmount = this.props.step === undefined ? 1 : this.props.step;
+    const incrementAmount = this.props.counter.step === undefined ? 1 : this.props.counter.step;
 
     this.setState({
       count: increase === true ? this.state.count + incrementAmount : this.state.count - incrementAmount,
@@ -44,8 +44,8 @@ export class Counter extends React.Component {
   // use to render the HTML for our component
   render() {
     return (
-      <div style={{ border: `2px solid ${this.props.color || 'lightblue'}`, padding: 5 }}>
-        <h2>{this.props.title}</h2>
+      <div style={{ border: `2px solid ${this.props.counter.color || 'lightblue'}`, padding: 5 }}>
+        <h2>{this.props.counter.title}</h2>
         <h3>{this.state.count}</h3>
 
         <button
