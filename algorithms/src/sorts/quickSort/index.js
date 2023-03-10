@@ -14,7 +14,7 @@
   
   Space: O(1) constant.
 
-  Params: nums, left, right
+  Params: numbers, left, right
   - left and right are indexes, for now, left will be 0, and right will be the
       last idx.
   - later these params will be used to specify a sub section of the array to
@@ -41,6 +41,8 @@ const expected3 = [2, 3, 3, 3, 6, 7, 8, 11, 14];
 
 const numbers4 = [1, 17, 12, 3, 9, 13, 21, 4, 27];
 const expected4 = [1, 3, 4, 9, 12, 13, 17, 21, 27];
+
+const { partition } = require('../partition');
 
 /**
  * Recursively sorts the given array in-place by mutating the array.
