@@ -91,6 +91,10 @@ function App() {
       <main>
         <Flashcards cards={flashcards1} />
         <Flashcards cards={flashcards2} />
+
+        {/* {[flashcards1, flashcards2].map((flashcards) => (
+          <Flashcards cards={flashcards} />
+        ))} */}
       </main>
     </div>
   );
