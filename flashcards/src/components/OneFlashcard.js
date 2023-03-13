@@ -9,7 +9,7 @@ export const OneFlashcard = (props) => {
       }}
     >
       <h3>{card.category}</h3>
-      {card.flipped ? <p>{card.back}</p> : <p>{card.front}</p>}
+      {card.flipped ? <p>{card.correct_answer}</p> : <p>{card.question}</p>}
       <button
         onClick={(event) => {
           handleCardDeleteClick(event, cardIdx);

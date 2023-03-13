@@ -89,8 +89,8 @@ function App() {
       <hr />
 
       <main>
-        <Flashcards cards={flashcards1} />
-        <Flashcards cards={flashcards2} />
+        <Flashcards title="Flashcards 1" />
+        <Flashcards title="Flashcards 2" />
 
         {/* {[flashcards1, flashcards2].map((flashcards) => (
           <Flashcards cards={flashcards} />

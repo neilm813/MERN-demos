@@ -12,9 +12,9 @@ export const CreateCard = (props) => {
     const newCard = {
       // long-form key: value syntax.
       category: category,
-      // shorthand syntax when key name and var name match.
-      front,
-      back,
+      question: front,
+      correct_answer: back,
+      flipped: false,
     };
 
     props.addNewCard(newCard);
