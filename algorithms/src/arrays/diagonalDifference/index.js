@@ -33,11 +33,30 @@ const expected2 = 0;
 
 /**
  * Calculates the absolute diagonal difference of a square matrix.
- * - Time: O(?).
- * - Space: O(?).
+ * - Time: O(n) linear. The nested arrays are not looped over, if they were,
+ *    the time complexity would be O(n^2) since this is a square matrix,
+ *    meaning the nested arrays are the same length as the outer array.
+ * - Space: O(1) constant.
  * @param {Array<Array<number>>} sqrMatrix A 2d array of numbers representing
  *    a square matrix (rows and columns).
  * @returns {number} Represents the absolute difference between the top left to
  *    bottom right diagonal and the top right to bottom left diagonal.
  */
-function diagonalDifference(sqrMatrix) {}
+function diagonalDifference(sqrMatrix) {
+  let ltrSum = 0;
+  let rtlSum = 0;
+
+  for (let i = 0; i < sqrMatrix.length; i++) {
+    const row = sqrMatrix[i];
+    ltrSum += row[i];
+    rtlSum += row[row.length - i - 1];
+  }
+  return Math.abs(ltrSum - rtlSum);
+}
+
+/**
+ * - Time: O(n) linear.
+ * - Space: O(1) constant.
+ */
+const functionalDiagonalDifference = (sqrMatrix) =>
+  Math.abs(sqrMatrix.reduce((diff, row, i) => diff + row[i] - row[row.length - i - 1], 0));
