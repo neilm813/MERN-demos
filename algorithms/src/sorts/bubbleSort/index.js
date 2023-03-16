@@ -96,3 +96,5 @@ function bubbleSortFlexible(items = [], compareFn = (a, b) => a - b) {
   }
   return items;
 }
+
+bubbleSort(numbersRandomOrder);
