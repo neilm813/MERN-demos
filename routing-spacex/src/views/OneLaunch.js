@@ -60,8 +60,8 @@ export const OneLaunch = (props) => {
       <h4>Details</h4>
       <p>{details}</p>
 
-      {originalImgUrls.map((url) => {
-        return <img className="shadow-img rounded mb-md" src={url} alt="Launch" width="60%" />;
+      {originalImgUrls.map((url, i) => {
+        return <img key={i} className="shadow-img rounded mb-md" src={url} alt="Launch" width="60%" />;
       })}
     </div>
   );

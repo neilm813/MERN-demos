@@ -27,12 +27,27 @@ const expected3 = [
 
 /**
  * Finds all the non-consecutive (out of order) numbers from the given array.
- * - Time: O(?).
- * - Space: O(?).
+ * - Time: O(n) linear.
+ * - Space: O(n) linear, potentially all are saved in the new array.
  * @param {Array<number>} sortedNumbers
  * @typedef {Array<{i: number, n: number}>} NonConsecutiveNumbers Array of objects.
  * @property {number} i The index of the non consecutive number.
  * @property {number} n The non consecutive number itself.
  * @returns {NonConsecutiveNumbers}
  */
-function allNonConsecutive(sortedNumbers) {}
+function allNonConsecutive(sortedNumbers) {
+  const nonConsecutiveNumbers = [];
+
+  for (let i = 1; i < sortedNumbers.length; i++) {
+    const prevNum = sortedNumbers[i - 1];
+    const currNum = sortedNumbers[i];
+
+    if (prevNum + 1 !== currNum) {
+      nonConsecutiveNumbers.push({
+        i: i,
+        n: currNum,
+      });
+    }
+  }
+  return nonConsecutiveNumbers;
+}
