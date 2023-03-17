@@ -63,6 +63,21 @@ const handleDeleteDestinationById = async (req, res) => {
   }
 };
 
+// Not needed on exam, used to seed lot's of data into the DB so we can travel
+const handleCreateManyDestinations = async (req, res) => {
+  try {
+    if (Array.isArray(req.body) === false) {
+      throw new Error('The request body must be an array.');
+    }
+
+    const createPromises = req.body.map((data) => Destination.create(data));
+    const settledOutcomes = await Promise.allSettled(createPromises);
+    return res.json(settledOutcomes);
+  } catch (error) {
+    return res.status(400).json({ ...error, message: error.message });
+  }
+};
+
 console.log('Destination controller created');
 module.exports = {
   // long-form - key: value
@@ -72,4 +87,5 @@ module.exports = {
   handleGetDestinationById,
   handleUpdateDestinationById,
   handleDeleteDestinationById,
+  handleCreateManyDestinations,
 };

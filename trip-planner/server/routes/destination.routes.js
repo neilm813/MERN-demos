@@ -6,6 +6,7 @@ const {
   handleGetDestinationById,
   handleUpdateDestinationById,
   handleDeleteDestinationById,
+  handleCreateManyDestinations,
 } = require('../controllers/destination.controller');
 
 const router = express.Router();
@@ -17,6 +18,9 @@ router.get('/', handleGetAllDestinations);
 router.get('/:id', handleGetDestinationById);
 router.put('/:id', handleUpdateDestinationById);
 router.delete('/:id', handleDeleteDestinationById);
+
+// This route isn't needed on the exam:
+router.post('/many', handleCreateDestination);
 
 console.log('Destination routes created');
 module.exports = {
