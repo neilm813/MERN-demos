@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 export const CreateGroceryItem = (props) => {
@@ -8,9 +7,9 @@ export const CreateGroceryItem = (props) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({ mode: 'all' });
 
-  // TODO: add custom error messages for the types of errors
+  console.log(errors);
 
   return (
     <form
@@ -19,21 +18,46 @@ export const CreateGroceryItem = (props) => {
       })}
     >
       <div>
-        {errors?.name?.type && <p style={{ color: 'red' }}>{errors.name.type}</p>}
-        <label>Name: </label> <input {...register('name', { required: true, minLength: 2 })} />
+        <label>Name: </label>{' '}
+        <input
+          {...register('name', {
+            required: 'Required field',
+            minLength: { value: 2, message: 'Minimum length is 2' },
+          })}
+        />
+        {errors?.name && <span style={{ color: 'red' }}> {errors.name.message}</span>}
       </div>
       <div>
-        {errors?.category?.type && <p style={{ color: 'red' }}>{errors.category.type}</p>}
-        <label>Category: </label> <input {...register('category', { required: true, minLength: 2 })} />
+        <label>Category: </label>{' '}
+        <input
+          {...register('category', {
+            required: 'Required field',
+            minLength: { value: 2, message: 'Minimum length is 2' },
+          })}
+        />
+        {errors?.category && <span style={{ color: 'red' }}>{errors.category.message}</span>}
       </div>
       <div>
-        {errors?.description?.type && <p style={{ color: 'red' }}>{errors.description.type}</p>}
-        <label>Description: </label> <input {...register('description', { required: true, minLength: 5 })} />
+        <label>Description: </label>{' '}
+        <input
+          {...register('description', {
+            required: 'Required field',
+            minLength: { value: 5, message: 'Minimum length is 5' },
+          })}
+        />
+        {errors?.description && <span style={{ color: 'red' }}>{errors.description.message}</span>}
       </div>
       <div>
-        {errors?.points?.type && <p style={{ color: 'red' }}>{errors.points.type}</p>}
         <label>Points: </label>{' '}
-        <input {...register('points', { required: true, min: 0, valueAsNumber: true })} type="number" />
+        <input
+          {...register('points', {
+            required: 'Required field',
+            min: { value: 1, message: 'Minimum is 1' },
+            valueAsNumber: true,
+          })}
+          type="number"
+        />
+        {errors?.points && <span style={{ color: 'red' }}>{errors.points.message}</span>}
       </div>
       <div>
         <input type="submit" value="Add Item" />
