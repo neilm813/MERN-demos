@@ -4,6 +4,8 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 
+const { destinationRouter } = require('./routes/destination.routes');
+
 const port = process.env.API_PORT;
 
 // requiring / importing runs the file!
@@ -23,5 +25,8 @@ app.use(cors());
 
 // req.body undefined without this!
 app.use(express.json());
+
+// '/api/destinations will be prepended to all the routes added onto the destinationRouter
+app.use('/api/destinations', destinationRouter);
 
 app.listen(port, () => console.log(`Listening on port ${port} for REQuests to RESpond to.`));
