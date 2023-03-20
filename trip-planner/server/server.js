@@ -20,7 +20,7 @@ stuff that happens in the middle of the the request and response.
 */
 
 // avoid CORS error since our front-end is running on a different port
-// so our requests are 'cross origin' port 3000 -> 8000
+// so our requests are 'cross origin' port 3000 -> 8080
 app.use(cors());
 
 // req.body undefined without this!

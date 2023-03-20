@@ -19,6 +19,8 @@ const DestinationSchema = new mongoose.Schema(
       type: String,
       required: [true, '{PATH} is required.'],
     },
+
+    // The type of media that the src url is for: img, Youtube Embed
     srcType: {
       type: String,
       required: [true, '{PATH} is required.'],
