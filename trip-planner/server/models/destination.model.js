@@ -46,17 +46,6 @@ const DestinationSchema = new mongoose.Schema(
   { timestamps: true } // adds createdAt and updatedAt.
 );
 
-DestinationSchema.pre('validate', function (next) {
-  const { summer, winter, spring, fall } = this;
-  const isAtLeastOneSeasonChecked = [summer, winter, spring, fall].some((bool) => bool);
-
-  if (isAtLeastOneSeasonChecked === false) {
-    next(new Error('At least one season must be checked.'));
-  } else {
-    next();
-  }
-});
-
 /* 
 Register schema with mongoose and provide a string to name the collection. This
 also returns a reference to our model that we can use for DB operations.
