@@ -15,7 +15,7 @@ export const NewDestination = (props) => {
   const [spring, setSpring] = useState(false);
   const [fall, setFall] = useState(false);
 
-  const [errors, setErrors] = useState(null);
+  const [validationErrors, setValidationErrors] = useState(null);
 
   const navigate = useNavigate();
 
@@ -44,7 +44,8 @@ export const NewDestination = (props) => {
       })
       .catch((error) => {
         console.log(error);
-        setErrors(error);
+        // optional chaining will return undefined if any of the keys don't exist without crashing, or the accessed value
+        setValidationErrors(error?.response?.data?.errors);
       });
   };
 
@@ -59,6 +60,7 @@ export const NewDestination = (props) => {
       >
         <div className="form-group">
           <label className="h6">Location</label>
+          {validationErrors?.location && <span className="text-danger ms-1">{validationErrors.location.message}</span>}
           <input
             onChange={(event) => {
               setLocation(event.target.value);
@@ -70,6 +72,9 @@ export const NewDestination = (props) => {
 
         <div className="form-group">
           <label className="h6">Description</label>
+          {validationErrors?.description && (
+            <span className="text-danger ms-1">{validationErrors.description.message}</span>
+          )}
           <input
             onChange={(event) => {
               setDescription(event.target.value);
@@ -81,6 +86,7 @@ export const NewDestination = (props) => {
 
         <div className="form-group">
           <label className="h6">Media URL</label>
+          {validationErrors?.src && <span className="text-danger ms-1">{validationErrors.src.message}</span>}
           <input
             onChange={(event) => {
               setSrc(event.target.value);
