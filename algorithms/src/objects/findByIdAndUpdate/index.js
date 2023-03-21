@@ -65,11 +65,31 @@ const expected3 = null;
 
 /**
  * Finds the specified obj by id and updates it with the given key value pairs.
- * - Time: O(?).
- * - Space: O(?).
+ * - Time: O(n + m) linear, n = collection.length. m = updatedValues num of keys.
+ *    Worst case is looping through the full collection because no id matched.
+ *    updatedValues is only looped over one time despite being a nested loop
+ *    since it is within a condition, hence we use addition instead of
+ *    multiplication in the Big O notation.
+ * - Space: O(1) constant.
  * @param {number} id
  * @param {Object} updatedValues Key value pairs used to update the found obj.
  * @param {Array<Object>} collection
  * @returns {?Object} The object that was updated or null if no object found.
  */
-function findByIdAndUpdate(id, updatedValues, collection) {}
+function findByIdAndUpdate(id, updatedValues, collection) {
+  for (const doc of collection) {
+    if (doc.id === id) {
+      for (const key in updatedValues) {
+        // only update keys that exist on the found object
+        if (doc.hasOwnProperty(key)) {
+          const newVal = updatedValues[key];
+
+          doc[key] = newVal;
+        }
+      }
+      return doc;
+    }
+  }
+  // above return didn't run so nothing was found
+  return null;
+}
