@@ -90,13 +90,48 @@ const expected4 = [
 ];
 
 /**
- * Filters the given items based on the search criteria using a startsWith
- * search method.
- * - Time: O(?).
- * - Space: O(?).
+ * Filters the given items based on the search criteria.
+ * - Time: O(n * (searchBy.length + searchFor.length)) n = items.length.
+ *    The searchBy.length + searchFor.length is due to the two .toLowerCase
+ *    methods which loop through the strings to lowerCase them.
+ * - Space: O(1) constant.
  * @param {Array<Object>} items The items to be filtered.
  * @param {string} searchFor The value of the given key to search for.
  * @param {string} searchBy The key to search by.
  * @returns {Array<Objects>} The matched items.
  */
-function functionalFilterByKey(items, searchFor, searchBy) {}
+const functionalFilterByKey = (items, searchFor, searchBy, stringSearchMethod = 'startsWith') =>
+  items.filter((item) => item[searchBy].toLowerCase()[stringSearchMethod](searchFor.toLowerCase()));
+
+function filterByKeyStartsWith(items, searchFor, searchBy, stringSearchMethod = 'startsWith') {
+  const filteredItems = [];
+
+  for (const item of items) {
+    if (item[searchBy].toLowerCase()[stringSearchMethod](searchFor.toLowerCase())) {
+      filteredItems.push(item);
+    }
+  }
+  return filteredItems;
+}
+
+// early exit via not committing to lowerCasing full string
+// this would require a lot more hard-coding to handle the bonus search method
+function filterByKeyStartsWith2(items, searchFor, searchBy) {
+  const filteredItems = [];
+
+  for (const item of items) {
+    let match = true;
+    let searchVal = item[searchBy];
+
+    for (let i = 0; i < searchFor.length; i++) {
+      if (searchVal[i].toLowerCase() !== searchFor[i].toLowerCase()) {
+        match = false;
+        break;
+      }
+    }
+    if (match) {
+      filteredItems.push(item);
+    }
+  }
+  return filteredItems;
+}
