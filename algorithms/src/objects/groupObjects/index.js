@@ -73,11 +73,40 @@ const expected = {
 /**
  * Creates a hash table of case-insensitive categories mapped to the items
  * belonging to that category.
- * - Time: O(?).
- * - Space: O(?).
+ * - Time: O(n).
+ * - Space: O(n).
  * @param {Array<Object>} items
- * @param {string} items.category
+ * @param {string} groupByKey The key to group the objects by. The value of
+ *    this key must be a valid data type that can be used for keys in objects.
  * @returns {Object<string, Array<Object>>} The hash category hash table with
  *    string keys and array of objects as values.
  */
-function groupObjects(items) {}
+function groupObjects(items, groupByKey = 'category') {
+  const table = {};
+
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    const lowerCaseCat = item[groupByKey].toLowerCase();
+
+    if (!table.hasOwnProperty(lowerCaseCat)) {
+      table[lowerCaseCat] = [];
+    }
+
+    table[lowerCaseCat].push(item);
+  }
+
+  return table;
+}
+
+const groupObjectsReduce = (items, groupByKey = 'category') =>
+  items.reduce((table, item) => {
+    const lowerCaseCat = item[groupByKey].toLowerCase();
+
+    if (!table.hasOwnProperty(lowerCaseCat)) {
+      table[lowerCaseCat] = [];
+    }
+
+    table[lowerCaseCat].push(item);
+
+    return table;
+  }, {});
