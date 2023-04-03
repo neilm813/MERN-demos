@@ -30,3 +30,6 @@ function formatPersonDetailsWithDestructuring(person) {
 
   return `${firstName} ${lastName} is ${age} years old and he lives in ${city} ${state}.`;
 }
+
+const theSpeedOfLight = 299_792_458;
+console.log(theSpeedOfLight);
