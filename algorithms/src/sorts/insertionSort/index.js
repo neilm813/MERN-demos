@@ -43,10 +43,42 @@ const expected = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 /**
  * Sorts the given array in-place.
- * Best: O(n) linear when array is already sorted.
- * Average: O(n^2) quadratic.
- * Worst: O(n^2) quadratic when the array is reverse sorted.
+ * - Best: O(n) linear when array is already sorted.
+ * - Average: O(n^2) quadratic.
+ * - Worst: O(n^2) quadratic when the array is reverse sorted.
  * @param {Array<number>} numbers
  * @returns {Array<number>} The given array after being sorted.
  */
-function insertionSort(numbers = []) {}
+function insertionSort(numbers = []) {
+  for (let i = 1; i < numbers.length; i++) {
+    // save the current 'target' so this space is available to use for shifting
+    let numToInsert = numbers[i];
+    let leftIdx = i - 1;
+
+    while (leftIdx >= 0 && numbers[leftIdx] > numToInsert) {
+      // shift to the right because it's greater than the item we are going to insert
+      numbers[leftIdx + 1] = numbers[leftIdx];
+      leftIdx--;
+    }
+    // shifting complete, insert position located
+    numbers[leftIdx + 1] = numToInsert;
+  }
+  return numbers;
+}
+
+function insertionSortSwap(numbers = []) {
+  for (let i = 1; i < numbers.length; i++) {
+    let currIdx = i; // to avoid altering i directly
+    let leftIdx = currIdx - 1; // compare to the left
+
+    while (leftIdx >= 0 && numbers[leftIdx] > numbers[currIdx]) {
+      // destructure swap notation
+      [numbers[leftIdx], numbers[currIdx]] = [numbers[currIdx], numbers[leftIdx]];
+
+      // curr got swapped to the left, so currIdx is now 1 to the left
+      currIdx--;
+      leftIdx = currIdx - 1;
+    }
+  }
+  return numbers;
+}
