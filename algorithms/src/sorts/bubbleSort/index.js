@@ -45,6 +45,7 @@ function bubbleSort(numbers = []) {
       }
     }
   }
+
   return numbers;
 }
 
