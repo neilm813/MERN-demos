@@ -117,3 +117,17 @@ function quickerSort(numbers = [], left = 0, right = numbers.length - 1) {
 
   return numbers;
 }
+
+const randomNumbers = [];
+
+for (let i = 0; i < 10000; i++) {
+  randomNumbers.push(Math.random());
+}
+
+console.time('recursive quickSort');
+quickSort([...randomNumbers]);
+console.timeEnd('recursive quickSort');
+
+console.time('quickerSort');
+quickerSort([...randomNumbers]);
+console.timeEnd('quickerSort');
