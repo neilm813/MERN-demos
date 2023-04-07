@@ -124,3 +124,8 @@ function partitionLomuto(numbers = [], low = 0, hi = numbers.length - 1) {
   [numbers[i + 1], numbers[hi]] = [numbers[hi], numbers[i + 1]];
   return i + 1;
 }
+
+module.exports = {
+  partition: partition,
+  // partitionLomuto: partitionLomuto
+};
