@@ -1,8 +1,10 @@
 /* 
   Visualization:
   https://www.hackerearth.com/practice/algorithms/sorting/quick-sort/visualize/
+
   Create a function that uses yesterday’s partition to fully sort an array
   in-place.
+
   Unstable sort.
   
   Time Complexity
@@ -11,11 +13,13 @@
     - Worst: O(n^2) quadratic.
   
   Space: O(1) constant.
+
   Params: nums, left, right
   - left and right are indexes, for now, left will be 0, and right will be the
       last idx.
   - later these params will be used to specify a sub section of the array to
       partition.
+
   Steps:
     - start by partitioning the full array
         (use the previously built partition algo).
