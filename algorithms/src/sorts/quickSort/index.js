@@ -65,6 +65,8 @@ function quickSort(numbers = [], left = 0, right = numbers.length - 1) {
   return numbers;
 }
 
+quickSort(numbers2);
+
 /**
  * Iteratively sorts the given array in-place by mutating the array. This is
  * faster than recursion because it's the same iterations but fewer function
