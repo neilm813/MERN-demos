@@ -1,7 +1,6 @@
 import './App.css';
 
-import OneLaunchOriginal from './components/OneLaunchOriginal';
-import OneLaunchContainer from './components/OneLaunchContainer';
+import OneLaunch from './components/OneLaunch';
 
 function App() {
   return (
@@ -21,11 +20,7 @@ function App() {
 
       <div className="container mx-auto">
         <main className="flex flex-col items-center">
-          {/* The original component from the lecture */}
-          <OneLaunchOriginal id="5eb87d13ffd86e000604b360" />
-
-          {/* Extra optional refactored component */}
-          {/* <OneLaunchContainer id="5eb87d13ffd86e000604b360" /> */}
+          <OneLaunch id="5eb87d13ffd86e000604b360" />
         </main>
       </div>
     </div>

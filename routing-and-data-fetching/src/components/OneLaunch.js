@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-export default function OneLaunchOriginal(props) {
+export default function OneLaunch(props) {
   // console.log('OneLaunch props:', props);
   const { id } = props;
 
