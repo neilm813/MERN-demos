@@ -44,8 +44,9 @@ export default function OneLaunchContainer(props) {
 
   return (
     <div className="w-3/5 bg-white dark:bg-gray-800 dark:border-gray-700 border border-gray-200 rounded-lg shadow mb-5">
-      <h2 className="text-center text-3xl font-extrabold mb-5 pt-5">THIS IS THE CONTAINER</h2>
-      {/* You can replace after the && with anything you want to display to indicate it's loading */}
+      <h2 className="text-3xl text-center font-bold my-3">Launch Details</h2>
+      <hr class="h-px mb-3 bg-gray-200 border-0 dark:bg-gray-700" />
+
       {isLoading && (
         <div className="text-center p-3">
           <Spinner className="h-20 w-20" />
