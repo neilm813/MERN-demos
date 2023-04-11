@@ -21,15 +21,13 @@ function App() {
       >
         <h1 className="text-5xl font-extrabold mb-5 pt-5">The Universe</h1>
         <q className="text-xl bold italic">What a concept.</q>
-        <nav className="bg-slate-900 p-5 rounded-lg">
+        <nav className="mt-3 bg-slate-900 p-5 rounded-lg flex space-x-3">
           <Link to="/" className="bold text-blue-600 dark:text-blue-500 hover:underline">
             Home
-          </Link>{' '}
-          |{' '}
+          </Link>
           <Link to="/launches" className="bold text-blue-600 dark:text-blue-500 hover:underline">
             Launches
-          </Link>{' '}
-          |{' '}
+          </Link>
           <Link
             to="/launches/5eb87d13ffd86e000604b360"
             className="bold text-blue-600 dark:text-blue-500 hover:underline"
