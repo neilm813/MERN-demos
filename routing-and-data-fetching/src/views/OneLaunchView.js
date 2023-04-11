@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-export default function OneLaunch(props) {
+export default function OneLaunchView(props) {
   // console.log('OneLaunch props:', props);
-  const { id } = props;
+  const { id } = useParams();
 
   const [launch, setLaunch] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -41,9 +42,10 @@ export default function OneLaunch(props) {
   }, [id]);
 
   return (
-    <div className="w-3/5 bg-white dark:bg-gray-800 dark:border-gray-700 border border-gray-200 rounded-lg shadow mb-5">
-      {isLoading && <p className="text-center my-3">Loading...</p>}
+    <div className="w-full bg-white dark:bg-gray-800 dark:border-gray-700 border border-gray-200 rounded-lg shadow mb-5">
+      <h2 className="text-center text-4xl font-extrabold mb-5 pt-5">Launch Details</h2>
 
+      {isLoading && <p className="text-center my-3">Loading...</p>}
       {fetchError && <p className="text-red-500 bold text-center my-3">{fetchError}</p>}
 
       {launch !== null && (
