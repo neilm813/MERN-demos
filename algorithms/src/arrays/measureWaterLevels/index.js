@@ -33,9 +33,29 @@ const expected8 = -1;
 /**
  * It ain't much, but it's honest work. A worker who measures water level fluctuations in a river is asked to find the
  * largest fluctuation in water levels during a day, but only for rises in water levels.
- * - Time: O(?).
- * - Space: O(?).
+ * - Time: O(n) linear.
+ * - Space: O(1) constant.
  * @param {Array<number>} waterLevels Non-empty .
  * @returns {number} The max water-level rise amount or -1 if none.
  */
-function measureWaterLevels(waterLevels) {}
+function measureWaterLevels(levels) {
+  let largestRise = -1;
+  let currLowLevel = levels[0];
+
+  for (let i = 1; i < levels.length; i++) {
+    const isNewMax = levels[i] - currLowLevel > largestRise;
+    /**
+     * When falling, currLow needs to update so it doesn't get stuck in a prev
+     * cycle on an old low that is lower than the lowest part of current cycle.
+     */
+    const isWaterLevelFalling = levels[i] < levels[i - 1];
+    const isLowerThanCurrLow = levels[i] < currLowLevel;
+
+    if (isNewMax) {
+      largestRise = levels[i] - currLowLevel;
+    } else if (isWaterLevelFalling || isLowerThanCurrLow) {
+      currLowLevel = levels[i];
+    }
+  }
+  return largestRise === 0 ? -1 : largestRise;
+}
