@@ -42,8 +42,8 @@ const expected5 = [
 
 /**
  * Finds all the sets of consecutive numbers that sum to the given target sum.
- * - Time: O(?).
- * - Space: O(?).
+ * - Time: O(n^2 * (j-i)). Slice is at most `j - i` iterations.
+ * - Space: O(n^2 * (j-i)).
  * @param {Array<number>} numbers Unordered numbers.
  * @param {number} targetSum
  * @returns {Array<Array<number>>} 2d array where each nested array is a set of
@@ -51,4 +51,18 @@ const expected5 = [
  *    this context means the numbers whose indexes are one after the other
  *    only.
  */
-function findConsecutiveSums(numbers, targetSum) {}
+function findConsecutiveSums(numbers, targetSum) {
+  const summableSubsets = [];
+
+  for (let i = 0; i < numbers.length; i++) {
+    let sum = numbers[i];
+
+    for (let j = i + 1; j <= numbers.length; j++) {
+      if (sum === targetSum) {
+        summableSubsets.push(numbers.slice(i, j));
+      }
+      sum += numbers[j];
+    }
+  }
+  return summableSubsets;
+}
