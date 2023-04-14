@@ -1,6 +1,6 @@
 import './App.css';
 
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, Navigate } from 'react-router-dom';
 
 import DestinationsView from './views/DestinationsView';
 import EditDestinationView from './views/EditDestinationView';
@@ -22,6 +22,7 @@ function App() {
         {/* Paths here should NOT include /api, in react only use /api when making axios request */}
         {/* Render the view that matches the URL here: */}
         <Routes>
+          <Route path="/" element={<Navigate to="/destinations" replace />} />
           <Route path="/destinations" element={<DestinationsView />} />
           <Route path="/destinations/new" element={<NewDestinationView />} />
           <Route path="/destinations/:id/edit" element={<EditDestinationView />} />
