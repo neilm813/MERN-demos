@@ -15,11 +15,11 @@ const DestinationSchema = new mongoose.Schema(
       required: [true, 'Required field.'],
       minlength: [5, 'Minimum length is {MINLENGTH}.'],
     },
-    mediaUrl: {
+    src: {
       type: String,
       required: [true, 'Required field.'],
     },
-    mediaUrlType: {
+    srcType: {
       type: String,
       required: [true, 'Required field.'],
     },
