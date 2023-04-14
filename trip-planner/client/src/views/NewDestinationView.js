@@ -6,6 +6,8 @@ import axios from 'axios';
 export default function NewDestinationView(props) {
   const navigate = useNavigate();
 
+  const [validationErrors, setValidationErrors] = useState(null);
+
   const [location, setLocation] = useState('');
   const [description, setDescription] = useState('');
   const [src, setSrc] = useState('');
@@ -40,6 +42,7 @@ export default function NewDestinationView(props) {
         console.log(res.data);
       })
       .catch((error) => {
+        setValidationErrors(error?.response?.data?.errors);
         console.log(error);
       });
   };
@@ -54,6 +57,9 @@ export default function NewDestinationView(props) {
         }}
       >
         <div>
+          {validationErrors?.location && (
+            <p style={{ color: 'red', marginLeft: '5px' }}>{validationErrors.location.message}</p>
+          )}
           <label>Location: </label>
           <input
             type="text"
@@ -64,6 +70,9 @@ export default function NewDestinationView(props) {
         </div>
 
         <div>
+          {validationErrors?.description && (
+            <p style={{ color: 'red', marginLeft: '5px' }}>{validationErrors.description.message}</p>
+          )}
           <label>Description: </label>
           <input
             type="text"
@@ -74,6 +83,7 @@ export default function NewDestinationView(props) {
         </div>
 
         <div>
+          {validationErrors?.src && <p style={{ color: 'red', marginLeft: '5px' }}>{validationErrors.src.message}</p>}
           <label>Media Url: </label>
           <input
             type="text"
