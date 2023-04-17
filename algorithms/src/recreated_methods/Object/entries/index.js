@@ -48,7 +48,6 @@ function entries(obj) {
     // has own property means it is a prop directly on obj, not on it's proto
     if (obj.hasOwnProperty(key)) {
       const val = obj[key];
-
       keyValPairs.push([key, val]);
     }
   }
