@@ -24,11 +24,25 @@ What is it about a string that makes it POSSIBLE for it to become a palindrome i
 */
 
 /**
- * Determines whether or not it is possible for the string's characters to be
- * rearranged into a palindrome.
- * - Space: O(?).
- * - Time: O(?).
- * @param {string} str
- * @returns {boolean} Whether the given str can be rearranged into a palindrome.
+ * This same approach can be done with an array, using .indexOf instead
+ * of .hasOwnProperty and .splice instead of delete, but it's much
+ * slower that way because .indexOf and .splice would be a nested loops.
+ * - Time: O(n) linear, n = str.length.
+ * - Space: O(n) linear.
  */
-function canStringBecomePalindrome(str) {}
+function canStringBecomePalindrome(str) {
+  if (str.length === 0) {
+    return false;
+  }
+
+  const leftoverCharsMap = new Map();
+
+  for (const char of str) {
+    if (leftoverCharsMap.has(char)) {
+      leftoverCharsMap.delete(char);
+    } else {
+      leftoverCharsMap.set(char, true);
+    }
+  }
+  return leftoverCharsMap.size <= 1 ? true : false;
+}
