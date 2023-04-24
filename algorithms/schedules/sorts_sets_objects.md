@@ -68,7 +68,6 @@
 ## Week 4 - Misc
 
 1. Mon
-   - [dropIt](../src/callbacks/dropIt/index.js)
    - [canStringBecomePalindrome](../src/strings/canStringBecomePalindrome/index.js)
 2. Tue
    - [groupObjects](../src/objects/groupObjects/index.js)
