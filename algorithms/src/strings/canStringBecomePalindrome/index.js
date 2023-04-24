@@ -19,6 +19,10 @@ const expected5 = true;
 const str6 = 'abc';
 const expected6 = false;
 
+/* 
+What is it about a string that makes it POSSIBLE for it to become a palindrome if the characters were rearranged.
+*/
+
 /**
  * Determines whether or not it is possible for the string's characters to be
  * rearranged into a palindrome.
